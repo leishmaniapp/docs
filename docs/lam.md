@@ -1,0 +1,2 @@
+# 🚀 LAM
+Local Analysis Model
