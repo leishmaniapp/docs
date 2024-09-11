@@ -1,9 +1,10 @@
 # 🌎 Cloud
 Leishmaniapp es una arquitectura de almacenamiento de información diagnóstica y procesamiento de imágenes, _LeishmaniappCloudServicesV2_ es el nombre asignado al conjunto de servicios en nube capaces de proveer esta funcionalidad
 
-
 ## Vista General de la Arquitectura
 _LeishmaniappCloudServicesV2_ es una arquitectura basada en [microservicios](https://aws.amazon.com/es/microservices/), cada uno de estos servicios se encarga de una funcionalidad específica, opera de manera independiente y se comunica con los demás elementos de la arquitectura a través de una API [gRPC](https://grpc.io/) y un esquema de datos predefinido. (Visite [_Protobuf Schema_](schema.md) para más información acerca de la API.)
+
+![Diagrama de infrastructura de nube](assets/cloud/cloud.png)
 
 ## Componentes
 La arquitectura _LeishmaniappCloudServicesV2_ atiende a un cliente (usualmente, pero no limitado a, [_aplicación de Leishmaniapp_](application.md)) a través de la API de gRPC utilizando el protocolo HTTP/2 (sin encriptación). Las peticiones deberán ser atendidas por un [Gateway](#service_gateway) a través de un único puerto TCP y redirigidas al microservicio capaz de atender la solicitud, el gateway también provee un servicio de _health check_ con el cual los clientes pueden validar la conexión con el servidor.
@@ -11,9 +12,6 @@ La arquitectura _LeishmaniappCloudServicesV2_ atiende a un cliente (usualmente, 
 Cada uno de los microservicios atiende un único servicio definido en [protobuf_schema.](schema.md), estos son: [Autenticación](#auth_service), [Almacenamiento de Diagnósticos](#diagnoses_service), [Almacenamiento de muestras](#samples_service) y [Análisis](#analysis_service). Este último mantiene un stream de datos, a través de una conexión bidireccional full-duplex entre el cliente y el servidor, con la cual múltiples peticiones de análisis pueden ser enviadas y sus resultados entregados de manera asíncrona, esto difiere con los demás servicios que son de tipo _unicast_.
 
 Las peticiones de análisis son enviadas a un [servicio de mensajería](#servicio-de-mensajeria) que entregará la petición a un servicio de análisis específico para cada enfermedad a diagnosticar, estos servicios pueden ser implementados en cualquier lenguaje de programación y se incorporan en la arquitectura a través de un [servicio de encapsulamiento](#model_wrapper), para ello los binarios encargados del análisis deben estar en conformidad con el formato [ALEF](models.md#alef-adapter-layer-exec-format) (Visite [_Modelos de Detección_](models.md) para más información). Los resultados de análisis son enviados al servicio de mensajería quien entregará los resultados al servicio de análisis, se guardará la información de la muestra a través del servicio de almacenamiento de muestras y se enviarán los resultados al cliente de manera asíncrona.
-
-A continuación se muestra un diagrama lógico de todos los componentes de _LeishmaniappCloudServicesV2_
-![Diagrama de infrastructura de nube](assets/cloud/cloud.png)
 
 ### Microservicios
 > 💡 Los repositorios de cada uno de los servicios hacen uso de  _submódulos de git_, no olvide inicializarlos con `git submodule update --init --recursive` después de clonar el repositorio.
@@ -80,6 +78,7 @@ resources:
 Este servicio valida la identidad de un cliente (especialista) a través de un _token de autenticación_ [JWT](https://jwt.io/), la lista de especialistas registrados se obtiene de una base de datos (requiere una conexión a [mongodb](https://www.mongodb.com/)) y no existe un servicio para la creación de usuarios.
 
 El servicio tiene las siguiente propiedades
+
 * El identificador del usuario es su _email_
 * La contraseña es encriptada con el algoritmo _bcrypt_
 * Solo un _token_ de autenticación es válido en dado momento, este token puede ser invalidado y reemplazado por uno nuevo

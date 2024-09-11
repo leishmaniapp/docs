@@ -9,10 +9,11 @@ theme:
   logo: assets/index/leishmaniapp_neumorphic_light.webp
   favicon: assets/index/leishmaniapp_neumorphic_light.webp
   palette:
-    primary: purple
+    primary: custom
 
 extra_css:
   - stylesheets/fonts.css
+  - stylesheets/color.css
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -25,3 +26,12 @@ markdown_extensions:
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true
+
+nav:
+  - index.md
+  - diseases.md
+  - models.md
+  - schema.md
+  - application.md
+  - cloud.md
+  - lam.md
