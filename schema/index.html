@@ -1,0 +1,1503 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../models/">
+      
+      
+        <link rel="next" href="../cloud/">
+      
+      
+      <link rel="icon" href="../assets/index/leishmaniapp_neumorphic_light.webp">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>📐 Protobuf Schema - Documentación de Leishmaniapp</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="../stylesheets/color.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#protobuf-schema" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Documentación de Leishmaniapp" class="md-header__button md-logo" aria-label="Documentación de Leishmaniapp" data-md-component="logo">
+      
+  <img src="../assets/index/leishmaniapp_neumorphic_light.webp" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentación de Leishmaniapp
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              📐 Protobuf Schema
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Documentación de Leishmaniapp" class="md-nav__button md-logo" aria-label="Documentación de Leishmaniapp" data-md-component="logo">
+      
+  <img src="../assets/index/leishmaniapp_neumorphic_light.webp" alt="logo">
+
+    </a>
+    Documentación de Leishmaniapp
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    🏠 Inicio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diseases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    🦠 Enfermedades
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    🔬 Modelos de Detección
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    📐 Protobuf Schema
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    📐 Protobuf Schema
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vista-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vista General
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vista General">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#por-que-protobuf" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Por qué Protobuf?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-de-datos-basicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tipos de Datos Básicos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tipos de Datos Básicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#respuesta-de-estado" class="md-nav__link">
+    <span class="md-ellipsis">
+      Respuesta de Estado
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Respuesta de Estado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codigos-de-estado" class="md-nav__link">
+    <span class="md-ellipsis">
+      Códigos de Estado
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imagenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imágenes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordenadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coordenadas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modelo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modelo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#especialista" class="md-nav__link">
+    <span class="md-ellipsis">
+      Especialista
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#muestras" class="md-nav__link">
+    <span class="md-ellipsis">
+      Muestras
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Muestras">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etapas-de-analisis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Etapas de Análisis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadatos-de-la-muestra" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metadatos de la Muestra
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagnóstico
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diagnóstico">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resultados
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hash-del-paciente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hash del Paciente
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servicios
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Servicios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autenticacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autenticación
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Autenticación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contenidos-del-token-tokenpayload" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contenidos del token (TokenPayload)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#muestras_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Muestras
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnosticos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagnósticos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analisis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Análisis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    🌎 Cloud
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    🚀 LAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../debugger/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    🪲 Depuradores
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vista-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vista General
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vista General">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#por-que-protobuf" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Por qué Protobuf?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-de-datos-basicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tipos de Datos Básicos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tipos de Datos Básicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#respuesta-de-estado" class="md-nav__link">
+    <span class="md-ellipsis">
+      Respuesta de Estado
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Respuesta de Estado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codigos-de-estado" class="md-nav__link">
+    <span class="md-ellipsis">
+      Códigos de Estado
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imagenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imágenes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordenadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coordenadas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modelo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modelo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#especialista" class="md-nav__link">
+    <span class="md-ellipsis">
+      Especialista
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#muestras" class="md-nav__link">
+    <span class="md-ellipsis">
+      Muestras
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Muestras">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etapas-de-analisis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Etapas de Análisis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadatos-de-la-muestra" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metadatos de la Muestra
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagnóstico
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diagnóstico">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resultados
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hash-del-paciente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hash del Paciente
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servicios
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Servicios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autenticacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autenticación
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Autenticación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contenidos-del-token-tokenpayload" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contenidos del token (TokenPayload)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#muestras_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Muestras
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnosticos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagnósticos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analisis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Análisis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="protobuf-schema">📐 Protobuf Schema</h1>
+<p><em>protobuf_schema</em> es mecanismo para serializar datos estructurados. Los esquemas Protobuf definen la estructura de los datos de manera eficiente y flexible, lo que permite la comunicación entre diferentes servicios, aplicaciones o componentes.</p>
+<blockquote>
+<p>📚 Link del repositorio: <a href="https://github.com/leishmaniapp/protobuf_schema">https://github.com/leishmaniapp/protobuf_schema</a></p>
+</blockquote>
+<h2 id="vista-general">Vista General</h2>
+<p>Protobuf es una especificación que describe la estructura de los mensajes intercambiados entre los servicios del proyecto. Cada esquema se define en un archivo <code>.proto</code>, que contiene una lista de campos que el mensaje puede tener. A cada campo se le asigna un número único, que permanecerá constante a lo largo de las actualizaciones, lo que permite la compatibilidad hacia adelante y hacia atrás.</p>
+<p>Los esquemas Protobuf se utilizan para definir:</p>
+<ul>
+<li><strong>Formatos de mensajes</strong>: La estructura de los datos que se intercambian, como imágenes, resultados de análisis, diagnósticos u otros datos relacionados con los servicios.</li>
+<li><strong>Definiciones de servicios</strong>: La estructura de las solicitudes y respuestas que se envían entre diferentes microservicios, como <code>auth_service</code>, <code>diagnoses_service</code>, <code>analysis_service</code> y <code>samples_service</code> (Véase <a href="../cloud/#microservicios">microservicios</a>). Esto asegura que los datos se comuniquen en un formato estandarizado.</li>
+</ul>
+<h3 id="por-que-protobuf">¿Por qué Protobuf?</h3>
+<ol>
+<li><strong>Serialización eficiente</strong>: Los mensajes Protobuf son más pequeños y rápidos de serializar/deserializar en comparación con otros formatos como JSON o XML.</li>
+<li><strong>Agnóstico del lenguaje</strong>: Los esquemas Protobuf pueden compilarse en múltiples lenguajes de programación (como Python, Kotlin, Java), facilitando la interoperabilidad entre servicios.</li>
+<li><strong>Compatibilidad hacia adelante y hacia atrás</strong>: Protobuf permite que el esquema evolucione con el tiempo mientras mantiene la compatibilidad con versiones anteriores.</li>
+</ol>
+<h2 id="tipos-de-datos-basicos">Tipos de Datos Básicos</h2>
+<h3 id="respuesta-de-estado">Respuesta de Estado</h3>
+<p>La manera en la que los servicios indican al cliente si la petición ha sido exitosa o fallida es a través del tipo de dato <strong>leishmaniapp.cloud.types.StatusResponse</strong>, este incluye un <a href="#codigos-de-estado">código de estado</a> y un texto opcional con la descripción del error, el mensaje se define de la siguiente manera:</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.types</span><span class="p">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kd">message</span><span class="w"> </span><span class="nc">StatusResponse</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="n">StatusCode</span><span class="w"> </span><span class="na">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">optional</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="codigos-de-estado">Códigos de Estado</h4>
+<p>Los códigos de estado representan el resultado de la operación (Exitoso o Fallido) y el tipo de error que se presentó, estos códigos de estado están parcialmente basados en los <a href="https://developer.mozilla.org/es/docs/Web/HTTP/Status">código de estado HTTP</a> y están definidos de la siguente manera:</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.types</span><span class="p">;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kd">enum</span><span class="w"> </span><span class="n">StatusCode</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="na">UNSPECIFIED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="na">OK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">200</span><span class="p">;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="na">BAD_REQUEST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">400</span><span class="p">;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="na">FORBIDDEN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">403</span><span class="p">;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="na">UNAUTHENTICATED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">401</span><span class="p">;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="na">NOT_FOUND</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">404</span><span class="p">;</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="na">IM_A_TEAPOD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">418</span><span class="p">;</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="na">UNPROCESSABLE_CONTENT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">422</span><span class="p">;</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="na">INVALID_TOKEN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">498</span><span class="p">;</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">  </span><span class="na">INTERNAL_SERVER_ERROR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>A continuación se explican todos los códigos de estado disponibles:</p>
+<table>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Código</th>
+<th>Tipo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UNSPECIFIED</td>
+<td>0</td>
+<td>Generic Error</td>
+<td>Error desconocido (Valor por defecto)</td>
+</tr>
+<tr>
+<td>OK</td>
+<td>200</td>
+<td>Ok</td>
+<td>Operación Exitosa</td>
+</tr>
+<tr>
+<td>BAD_REQUEST</td>
+<td>400</td>
+<td>Client Error</td>
+<td>La petición del cliente está incompleta o tiene información inválida</td>
+</tr>
+<tr>
+<td>FORBIDDEN</td>
+<td>403</td>
+<td>Auth Error</td>
+<td>Las credenciales de autenticación son inválidas o han expirado</td>
+</tr>
+<tr>
+<td>UNAUTHENTICATED</td>
+<td>401</td>
+<td>Auth Error</td>
+<td>El usuario no se ha autenticado</td>
+</tr>
+<tr>
+<td>INVALID_TOKEN</td>
+<td>498</td>
+<td>Auth Error</td>
+<td>El <em>Header</em> de autenticación no contiene un esquema <em>Bearer</em></td>
+</tr>
+<tr>
+<td>NOT_FOUND</td>
+<td>404</td>
+<td>Client Error</td>
+<td>El recurso o servicio especificado no ha podido ser encontrado</td>
+</tr>
+<tr>
+<td>IM_A_TEAPOD</td>
+<td>418</td>
+<td>Client Error</td>
+<td>El servicio no puede atender una solicitud para lo cual no fue diseñado, ej. Autenticarse en el servicio de Análisis</td>
+</tr>
+<tr>
+<td>UNPROCESSABLE_CONTENT</td>
+<td>422</td>
+<td>Analysis Error</td>
+<td>El requerimiento de análisis tiene contenido no válido que no puede ser analizado</td>
+</tr>
+<tr>
+<td>INTERNAL_SERVER_ERROR</td>
+<td>500</td>
+<td>Server Error</td>
+<td>El servidor tuvo un error interno del cual no se pudo recuperar</td>
+</tr>
+</tbody>
+</table>
+<h3 id="imagenes">Imágenes</h3>
+<p>Los archivos de imágen se serializan byte por byte desde el archivo de origen en un array de <em>bytes</em>. Esta información se almacena en el tipo de dato <strong>leishmaniapp.cloud.types.ImageBytes</strong>, los bytes del archivo se colocan uno a uno en el campo <em>data</em> y el tipo de archivo en formato <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types">MIME</a> se almacena en el campo <em>mime</em>. Los servicios que requieran reconstruir la imagen pueden crear un archivo cuya extensión corresponda al tipo <em>MIME</em> del campo <em>mime</em> y escribir los <em>raw bytes</em> del campo <em>data</em> directamente en el archivo.</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.types</span><span class="p">;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kd">message</span><span class="w"> </span><span class="nc">ImageBytes</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="kt">bytes</span><span class="w"> </span><span class="na">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">mime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="coordenadas">Coordenadas</h3>
+<p>Las coordenadas de cada uno de los elementos identificados durante el análisis son representados por el tipo de dato <strong>leishmaniapp.cloud.types.Coordinates</strong>, este contiene las coordenadas <em>x</em> y <em>y</em> así como las dimensiones del bounding box <em>w</em> y <em>h</em>. (Véase <a href="../models/">modelos de análisis</a>)</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.types</span><span class="p">;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kd">message</span><span class="w"> </span><span class="nc">Coordinates</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="kt">uint32</span><span class="w"> </span><span class="na">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="kt">uint32</span><span class="w"> </span><span class="na">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="kt">uint32</span><span class="w"> </span><span class="na">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="kt">uint32</span><span class="w"> </span><span class="na">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">}</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="kd">message</span><span class="w"> </span><span class="nc">ListOfCoordinates</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">repeated</span><span class="w"> </span><span class="n">Coordinates</span><span class="w"> </span><span class="na">coordinates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="modelo">Modelo</h2>
+<p>Los tipos de datos correspondientes al dominio de negocio de Leishmaniapp se encuentran en el archivo <em>model.proto</em>, a continuación un diagrama de clase representando los modelos y sus relaciones.</p>
+<p><a class="glightbox" href="../assets/schema/model.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Diagrama de clases de los modelos de Leishmaniapp" src="../assets/schema/model.png" /></a></p>
+<h3 id="especialista">Especialista</h3>
+<p>El especialista (<em>specialist</em>) es el usuario principal de la aplicación, sus cuentas de usuario son creadas y sus credenciales son asignadas por el administrador del sistema, cada especialista es identificado a través de su <em>email</em> y tiene una lista de enfermedades permitidas para el diagnóstico.</p>
+<p>Existen tres variantes del modelo de especialista:</p>
+<ul>
+<li><strong>Specialist</strong>: Modelo base del especialista, manera en la cuál es almacenado en la base de datos y recuperado del servicio de autenticación</li>
+<li><strong>Specialist.WithCredentials</strong>: Especialista con credenciales de acceso (hash de contraseña y token), este es el registro que se almacena en la base de datos</li>
+<li><strong>Specialist.Record</strong>: Registro simple de especialista, únicamente incluye su <em>email</em> y nombre</li>
+</ul>
+<p>La definición del modelo del especialista se encuentra a continuación:</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.model</span><span class="p">;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kd">message</span><span class="w"> </span><span class="nc">Specialist</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="k">reserved</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="kd">message</span><span class="w"> </span><span class="nc">WithCredentials</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">password_hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="k">repeated</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">diseases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="k">optional</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">  </span><span class="kd">message</span><span class="w"> </span><span class="nc">Record</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="k">reserved</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">  </span><span class="k">repeated</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">diseases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="muestras">Muestras</h3>
+<p>Las muestras (<em>samples</em>) contienen información acerca de los resultados de análisis de cada una de las imágenes utilizadas durante el diagnóstico, estas muestras contienen los <em>metadatos</em> relevantes, la <em>etapa de análisis</em> actual, la información del <em>especialista</em>, un mapa con los <em>resultados</em> y un indicador de la versión del modelo de diagnóstico. De la muestra base existen dos variantes: <strong>Sample.WithoutStage</strong> que excluye la información de la etapa de análisis y <strong>Sample.WithError</strong> que omite los campos de <em>stage</em> y <em>results</em>, utilizada para almacenar muestras sin resultados</p>
+<p>Las muestras se definen a través de la siguiente estructura:</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.model</span><span class="p">;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kd">message</span><span class="w"> </span><span class="nc">Sample</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="n">ImageMetadata</span><span class="w"> </span><span class="na">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="n">AnalysisStage</span><span class="w"> </span><span class="na">stage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="n">Specialist.Record</span><span class="w"> </span><span class="na">specialist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="n">map</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="n">types.ListOfCoordinates</span><span class="p">&gt;</span><span class="w"> </span><span class="na">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="kd">message</span><span class="w"> </span><span class="nc">WithoutStage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="k">reserved</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="n">ImageMetadata</span><span class="w"> </span><span class="na">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="n">Specialist.Record</span><span class="w"> </span><span class="na">specialist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="n">map</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="n">types.ListOfCoordinates</span><span class="p">&gt;</span><span class="w"> </span><span class="na">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">  </span><span class="kd">message</span><span class="w"> </span><span class="nc">WithError</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">    </span><span class="k">reserved</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">    </span><span class="n">ImageMetadata</span><span class="w"> </span><span class="na">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">    </span><span class="n">Specialist.Record</span><span class="w"> </span><span class="na">specialist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="etapas-de-analisis">Etapas de Análisis</h4>
+<p>Una vez se encola una petición de análisis para una muestra esta adquiere el estado de <em>ANALYZING</em>, este estado representa la etapa en el flujo de análisis en la que se encuentra la imagen, una vez los resultados son entregados puede adquirir cualquiera de los siguientes estados:</p>
+<ul>
+<li><strong>ANALYZING</strong>: La imagen está siendo analizada, no ha llegado respuesta del modelo de análisis</li>
+<li><strong>ERROR</strong>: Error durante el análisis, el resultado ya fue entregado al usuario</li>
+<li><strong>ERROR_DELIVER</strong>: Error durante el análisis, el usuario no ha sido notificado del error, le será entregado en su próxima reconexión</li>
+<li><strong>DELIVER</strong>: Análisis exitoso, los resultados no han sido enviados al usuario, pendiende de entrega para su próxima reconexión</li>
+<li><strong>ANALYZED</strong>: Análisis exitoso, los resultados fueron enviados correctamente el usuario</li>
+</ul>
+<p>El estado análisis progresa de acuerdo a la siguiente <em>máquina de estados</em></p>
+<p><a class="glightbox" href="../assets/schema/analysis_stages.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Máquina de estados (Etapas de análisis)" src="../assets/schema/analysis_stages.png" /></a></p>
+<p>Los estados se defininen en el esquema a través de la siguiente enumeración</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.model</span><span class="p">;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kd">enum</span><span class="w"> </span><span class="n">AnalysisStage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="na">ERROR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="na">ERROR_DELIVER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="na">ANALYZING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="na">DELIVER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="na">ANALYZED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="metadatos-de-la-muestra">Metadatos de la Muestra</h4>
+<p>Las muestras tienen asociada información relevante para su almacenamiento, estos datos son:</p>
+<ul>
+<li><strong>diagnosis</strong>: UUID del diagnóstico asociado</li>
+<li><strong>sample</strong>: Número de muestra dentro del diagnóstico</li>
+<li><strong>diasese</strong>: Identificador de la enfermedad asociada</li>
+<li><strong>date</strong>: Fecha y hora de la toma de la muestra en <a href="https://es.wikipedia.org/wiki/Tiempo_Unix">tiempo UNIX</a></li>
+</ul>
+<p>Los metadatos de la imagen se definen a través de la siguente estructura:</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.model</span><span class="p">;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kd">message</span><span class="w"> </span><span class="nc">ImageMetadata</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="k">reserved</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">diagnosis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span><span class="kt">uint32</span><span class="w"> </span><span class="na">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">disease</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">  </span><span class="kt">sint64</span><span class="w"> </span><span class="na">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="diagnostico">Diagnóstico</h3>
+<p>Los diagnósticos (<em>diagnoses</em>) son la información concretada a partir de una serie de muestras y se almacena con el fin de formar una historia clínica, cada diagnóstico tiene un <em>identificador único</em> en formato <a href="https://es.wikipedia.org/wiki/Identificador_%C3%BAnico_universal">UUID</a>, el <em>identificador</em> de la enfermedad diagnosticada, la información básica del especialista que realizó el diagnóstico, un hash identificador del paciente, la cantidad de muestras que fueron utilizadas para el diagnóstico, la fecha y hora del diagnóstico en <a href="https://es.wikipedia.org/wiki/Tiempo_Unix">tiempo UNIX</a>, las observaciones adicionales del especialista y los resultados obtenidos.</p>
+<p>La estructura de diagnóstico se define de la siguiente manera</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.model</span><span class="p">;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="kd">message</span><span class="w"> </span><span class="nc">Diagnosis</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="kd">message</span><span class="w"> </span><span class="nc">Results</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">disease</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span><span class="n">Specialist.Record</span><span class="w"> </span><span class="na">specialist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">patient_hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">  </span><span class="kt">uint32</span><span class="w"> </span><span class="na">samples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">  </span><span class="kt">sint64</span><span class="w"> </span><span class="na">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">  </span><span class="k">optional</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">remarks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">  </span><span class="n">Results</span><span class="w"> </span><span class="na">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="resultados">Resultados</h4>
+<p>La estructura de resultados se encuentra embebida en la estructura de diagnóstico (<strong>leishmaniapp.cloud.model.Diagnosis.Results</strong>), esta estructura contiene el consolidado de resultados encontrados en todas las muestras, a continuación una tabla explicando cada uno de los campos y su uso:</p>
+<table>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>specialist_result</td>
+<td>Booleano representando el resultado de análisis (según el especialista), <em>true</em> para positivo y <em>false</em> para negativo</td>
+</tr>
+<tr>
+<td>specialist_elements</td>
+<td>Un mapa llave-valor cuya llave es el identificador del <strong>elemento diagnóstico</strong> y el valor la suma total de la cantidad encontrada de ese elemento en todas las muestras, la cantidad en cada muestra es dada por el especialista</td>
+</tr>
+<tr>
+<td>model_result</td>
+<td>Booleano representando el resultado de análisis (según el modelo de diagnóstico), <em>true</em> para positivo y <em>false</em> para negativo</td>
+</tr>
+<tr>
+<td>model_elements</td>
+<td>Un mapa llave-valor cuya llave es el identificador del <strong>elemento diagnóstico</strong> y el valor la suma total de la cantidad encontrada de ese elemento en todas las muestras, el valor se obtiene a partir de los resultados <em>modelo de diagnóstico</em></td>
+</tr>
+</tbody>
+</table>
+<p>La estructura está definida de la siguiente manera:</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.model</span><span class="p">;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kd">message</span><span class="w"> </span><span class="nc">Diagnosis</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="o">...</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="kd">message</span><span class="w"> </span><span class="nc">Results</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="na">specialist_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="n">map</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">int32</span><span class="p">&gt;</span><span class="w"> </span><span class="na">specialist_elements</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="na">model_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="n">map</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">int32</span><span class="p">&gt;</span><span class="w"> </span><span class="na">model_elements</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">  </span><span class="o">...</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="hash-del-paciente">Hash del Paciente</h4>
+<p>Con el fin de proteger la privacidad de los pacientes y anonimizar los datos acerca de ellos, almacena la información de los pacientes a través de un hash calculado a partir de su <strong>tipo de documento</strong> seguido de un punto y su <strong>número de documento</strong></p>
+<p>Ejemplo de un paciente con <em>Cédula de Ciudadanía (CC)</em> y número 1185456854</p>
+<blockquote>
+<p>CC.1185456854</p>
+</blockquote>
+<p>El cálculo del hash se realiza mediante el algoritmo <a href="https://es.wikipedia.org/wiki/SHA-2">sha256</a>, en el ejemplo anterior el resultado sería:</p>
+<blockquote>
+<p>6d2208fbe633b2cdec44ebf3865d2f265080d4d8783068bdb01e55924ea1d5c6</p>
+</blockquote>
+<h2 id="servicios">Servicios</h2>
+<p>La arquitectura de Leishmaniapp ofrece sus servicios a través de una API <a href="https://grpc.io/">gRPC</a> y cada uno de los servicios que la arquitectura debe de proveer se define a través de archivos de <em>protobuf</em></p>
+<h3 id="autenticacion">Autenticación</h3>
+<p>El servicio de autenticación se define en el archivo <code>auth.proto</code></p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Descripción</th>
+<th>Parámetro</th>
+<th>Valor de Retorno</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authenticate</td>
+<td>Autenticarse y obtener un <em>token jwt</em></td>
+<td>AuthRequest: <em>email</em> y contraseña</td>
+<td>AuthResponse: <em><a href="#respuesta-de-estado">respuesta de estado</a></em> y <em>token JWT</em> en caso de ser exitoso</td>
+</tr>
+<tr>
+<td>VerifyToken</td>
+<td>Verificar la validez de un <em>token jwt</em></td>
+<td>TokenRequest: <em>token jwt</em> en texto</td>
+<td><em>respuesta de estado</em>, OK para tokens válidos</td>
+</tr>
+<tr>
+<td>InvalidateSession</td>
+<td>Invalidar un token (cerrar sesión)</td>
+<td>TokenRequest</td>
+<td><em>respuesta de estado</em>, OK para tokens válidos</td>
+</tr>
+<tr>
+<td>DecodeToken</td>
+<td>Decodificar los contenidos del token, obtener la información del cliente asociado</td>
+<td>TokenRequest</td>
+<td>DecodeResponse: <em>respuesta de estado</em> y contenidos del token (TokenPayload) si el token es válido</td>
+</tr>
+</tbody>
+</table>
+<p>El código correspondiente es:</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.auth</span><span class="p">;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="kd">service</span><span class="w"> </span><span class="n">AuthService</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">Authenticate</span><span class="p">(</span><span class="n">AuthRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">AuthResponse</span><span class="p">);</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">VerifyToken</span><span class="p">(</span><span class="n">TokenRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">types.StatusResponse</span><span class="p">);</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">InvalidateSession</span><span class="p">(</span><span class="n">TokenRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">types.StatusResponse</span><span class="p">);</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">DecodeToken</span><span class="p">(</span><span class="n">TokenRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">DecodeResponse</span><span class="p">);</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">}</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="kd">message</span><span class="w"> </span><span class="nc">AuthRequest</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="p">}</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="kd">message</span><span class="w"> </span><span class="nc">AuthResponse</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">  </span><span class="n">types.StatusResponse</span><span class="w"> </span><span class="na">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">  </span><span class="k">optional</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="p">}</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="kd">message</span><span class="w"> </span><span class="nc">TokenRequest</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="p">}</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="kd">message</span><span class="w"> </span><span class="nc">DecodeResponse</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="w">  </span><span class="n">types.StatusResponse</span><span class="w"> </span><span class="na">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="w">  </span><span class="k">optional</span><span class="w"> </span><span class="n">TokenPayload</span><span class="w"> </span><span class="na">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="contenidos-del-token-tokenpayload">Contenidos del token (TokenPayload)</h4>
+<p>El <em>token</em> de acceso está soportado por el estándar <a href="https://jwt.io/">JWT</a>, este estándar indica que los tokens deben de cargar un <em>payload</em> con una serie de <em>claims</em>. La estructura <strong>leishmaniapp.cloud.auth.TokenPayload</strong> contiene toda la información serializada en este campo.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iat</td>
+<td>(Issued At) Fecha y hora en <em>tiempo UNIX</em> en el que el token empieza a ser válido</td>
+</tr>
+<tr>
+<td>specialist</td>
+<td>Información básica del especialista</td>
+</tr>
+</tbody>
+</table>
+<p>El código correspondiente es:</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.auth</span><span class="p">;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kd">message</span><span class="w"> </span><span class="nc">TokenPayload</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="k">reserved</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="kt">sint64</span><span class="w"> </span><span class="na">iat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span><span class="n">model.Specialist</span><span class="w"> </span><span class="na">specialist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="muestras_1">Muestras</h3>
+<p>Servicio encargado de almacenar, actualizar, recuperar y eliminar muestras. Este servicio actúa como un repositorio de datos para las muestras.</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Descripción</th>
+<th>Parámetro</th>
+<th>Valor de Retorno</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StoreImageSample</td>
+<td>Guardar una nueva muestra</td>
+<td>ImageSampleRequest: Información de la muestra y <em>bytes</em> de la imagen, sólo la información de la muestra es almacenada</td>
+<td><em>respuesta de estado</em></td>
+</tr>
+<tr>
+<td>UpdateSample</td>
+<td>Actualizar una muestra ya existente</td>
+<td>model.Sample</td>
+<td><em>respuesta de estado</em></td>
+</tr>
+<tr>
+<td>GetSample</td>
+<td>Obtener una muestra del repositorio</td>
+<td>SampleRequest: <em>uuid</em> del diagnóstico y número de muestra</td>
+<td>SampleResponse: <em>respuesta de estado</em> y muestra en caso de existir</td>
+</tr>
+<tr>
+<td>DeleteSample</td>
+<td>Borrar una muestra, retorna la muestra eliminada</td>
+<td>SampleRequest</td>
+<td>SampleResponse, retorna la muestra eliminada</td>
+</tr>
+<tr>
+<td>GetUndeliveredBySpecialist</td>
+<td>Obtener todas las muestras que no han sido entregadas al especialista</td>
+<td>UndeliveredRequest: <em>email</em> del especialista al que deben de entregarse las muestras</td>
+<td>UndeliveredResponse: <em>respuesta de estado</em> y una lista de muestras que estaban pendientes de entrega</td>
+</tr>
+</tbody>
+</table>
+<p>El código correspondiente es:</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.samples</span><span class="p">;</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kd">service</span><span class="w"> </span><span class="n">SamplesService</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">StoreImageSample</span><span class="p">(</span><span class="n">ImageSampleRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">types.StatusResponse</span><span class="p">);</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">UpdateSample</span><span class="p">(</span><span class="n">model.Sample</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">types.StatusResponse</span><span class="p">);</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">GetSample</span><span class="p">(</span><span class="n">SampleRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">SampleResponse</span><span class="p">);</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">DeleteSample</span><span class="p">(</span><span class="n">SampleRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">SampleResponse</span><span class="p">);</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">GetUndeliveredBySpecialist</span><span class="p">(</span><span class="n">UndeliveredRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">UndeliveredResponse</span><span class="p">);</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="p">}</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="kd">message</span><span class="w"> </span><span class="nc">ImageSampleRequest</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">    </span><span class="n">model.Sample</span><span class="w"> </span><span class="na">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">    </span><span class="n">types.ImageBytes</span><span class="w"> </span><span class="na">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="p">}</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="kd">message</span><span class="w"> </span><span class="nc">SampleRequest</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">diagnosis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="na">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="p">}</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="kd">message</span><span class="w"> </span><span class="nc">SampleResponse</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="w">    </span><span class="k">reserved</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="w">    </span><span class="n">types.StatusResponse</span><span class="w"> </span><span class="na">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="w">    </span><span class="k">optional</span><span class="w"> </span><span class="n">model.Sample</span><span class="w"> </span><span class="na">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="p">}</span>
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a><span class="kd">message</span><span class="w"> </span><span class="nc">UndeliveredRequest</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">specialist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a><span class="p">}</span>
+</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a>
+</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a><span class="kd">message</span><span class="w"> </span><span class="nc">UndeliveredResponse</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-33"><a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a><span class="w">    </span><span class="n">types.StatusResponse</span><span class="w"> </span><span class="na">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-12-34"><a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a><span class="w">    </span><span class="k">repeated</span><span class="w"> </span><span class="n">model.Sample</span><span class="w"> </span><span class="na">samples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-12-35"><a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="diagnosticos">Diagnósticos</h3>
+<p>Servicio encargado de almacenar y consultar la información de diagnósticos consolidados como un repositorio de datos, permite insertar/actualizar y eliminar diagnósticos</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Descripción</th>
+<th>Parámetro</th>
+<th>Valor de Retorno</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StoreDiagnosis</td>
+<td>Almacenar (o actualizar) un diagnóstico</td>
+<td>model.Diagnosis</td>
+<td><em>respuesta de estado</em></td>
+</tr>
+<tr>
+<td>GetDiagnosis</td>
+<td>Recuperar la información de un diagnóstico</td>
+<td>DiagnosisRequest: <em>uuid</em> del diagnóstico a consultar</td>
+<td>DiagnosisResponse: <em>respuesta de estado</em> e información de diagnóstico en caso de existir</td>
+</tr>
+</tbody>
+</table>
+<p>El código correspondiente es:</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.diagnoses</span><span class="p">;</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="kd">service</span><span class="w"> </span><span class="n">DiagnosesService</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">StoreDiagnosis</span><span class="p">(</span><span class="n">model.Diagnosis</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">types.StatusResponse</span><span class="p">);</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">GetDiagnosis</span><span class="p">(</span><span class="n">DiagnosisRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">DiagnosisResponse</span><span class="p">);</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">}</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="kd">message</span><span class="w"> </span><span class="nc">DiagnosisRequest</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">uuid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="p">}</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="kd">message</span><span class="w"> </span><span class="nc">DiagnosisResponse</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="n">types.StatusResponse</span><span class="w"> </span><span class="na">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">    </span><span class="k">optional</span><span class="w"> </span><span class="n">model.Diagnosis</span><span class="w"> </span><span class="na">diagnosis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="analisis">Análisis</h3>
+<p>El servicio de análisis, a diferencia de los demás servicios, crea un canal de comunicación bidireccional entre cliente y servidor para de esta manera recibir peticiones y enviar resultados de manera asíncrona.</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Descripción</th>
+<th>Parámetro</th>
+<th>Valor de Retorno</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StartAnalysis</td>
+<td>Iniciar una conexión bidireccional para iniciar solicitudes de análisis y recibir resultados</td>
+<td>stream de datos asíncrono con AnalysisRequest: metadatos de la imagen, <em>bytes</em> de la imagen e información del especialista</td>
+<td>stream de datos asíncrono con AnalysisResponse: <em>respuesta de estado</em> y muestra (unión entre exitosa y fallida)</td>
+</tr>
+</tbody>
+</table>
+<p>El código correspondiente es:</p>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">leishmaniapp</span><span class="o">.</span><span class="n">cloud.analysis</span><span class="p">;</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="kd">service</span><span class="w"> </span><span class="n">AnalysisService</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">StartAnalysis</span><span class="p">(</span><span class="n">stream</span><span class="w"> </span><span class="n">AnalysisRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">stream</span><span class="w"> </span><span class="n">AnalysisResponse</span><span class="p">);</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p">}</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="kd">message</span><span class="w"> </span><span class="nc">AnalysisRequest</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="n">model.ImageMetadata</span><span class="w"> </span><span class="na">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">    </span><span class="n">types.ImageBytes</span><span class="w"> </span><span class="na">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">    </span><span class="n">model.Specialist.Record</span><span class="w"> </span><span class="na">specialist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="p">}</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="kd">message</span><span class="w"> </span><span class="nc">AnalysisResponse</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">    </span><span class="n">types.StatusResponse</span><span class="w"> </span><span class="na">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">    </span><span class="k">oneof</span><span class="w"> </span><span class="n">sample</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="w">        </span><span class="n">model.Sample.WithoutStage</span><span class="w"> </span><span class="na">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="w">        </span><span class="n">model.Sample.WithError</span><span class="w"> </span><span class="na">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="p">}</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
