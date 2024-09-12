@@ -2,7 +2,9 @@ site_name: Documentación de Leishmaniapp
 
 plugins:
   - glightbox
-  # - with-pdf
+  - with-pdf:
+      output_path: document.pdf
+      enabled_if_env: ENABLE_PDF_EXPORT
 
 theme:
   name: "material"
