@@ -20,6 +20,7 @@ Los modelos de detección deben de representar los resultados a través de un ma
 
 Ejemplo: suponga que una enfermedad _mock_ tiene 3 elementos diagnósticos: 'foo', 'bar' y 'baz', a continuación un ejemplo de los posibles resultados del modelo _mock_
 
+[//]: # (cSpell:disable)
 ```json
 {
     "foo": [],
@@ -32,6 +33,7 @@ Ejemplo: suponga que una enfermedad _mock_ tiene 3 elementos diagnósticos: 'foo
     ]
 }
 ```
+[//]: # (cSpell:enable)
 
 Esto implica que:
 
@@ -40,13 +42,15 @@ Esto implica que:
 * Hay 1 elemento del tipo _baz_ en la muestra, su centro de masa se encuentra en la coordenada (25, 20)
 
 ## ALEF (Adapter Layer Exec Format)
-Para que los modelos de análisis puedan ser integrados a _LeishmaniappCloudServiceV2_ (Veáse [documentación de cloud](cloud.md)) es necesario implementar un estándar de entradas y salidas que permitan al _[model_wrapper](cloud.md#model_wrapper)_ llamar a los modelos de análisis, este estándar tiene el nombre de _ALEF_ dentro de la infrastructura de Leishmaniapp, el nombre viene dado por el mecanismo que utiliza _model_wrapper_ para hacer el llamado a los modelos (_syscall exec_).
+Para que los modelos de análisis puedan ser integrados a _LeishmaniappCloudServiceV2_ (Véase [documentación de cloud](cloud.md)) es necesario implementar un estándar de entradas y salidas que permitan al _[model_wrapper](cloud.md#model_wrapper)_ llamar a los modelos de análisis, este estándar tiene el nombre de _ALEF_ dentro de la infraestructura de Leishmaniapp, el nombre viene dado por el mecanismo que utiliza _model_wrapper_ para hacer el llamado a los modelos (_syscall exec_).
 
 #### Entradas
 
+[//]: # (cSpell:disable)
 ```properties
 absolute/path/to/executable <args> --alef-in <input> --alef-out <output>
 ```
+[//]: # (cSpell:enable)
 
 * **--alef-in**: Argumento que especifica la ruta relativa o absoluta hacia el archivo de imagen que va a ser utilizado como entrada para el modelo, este argumento es obligatorio.
   
@@ -59,6 +63,7 @@ Se recomienda que cualquier otro parámetro adicional sea opcional, de no ser as
 Los resultados del modelo deben de ser escritos a la _salida estándar_ (`stdout`) y el código terminación del programa debe de ser `0`, si desea mostrar información de depuración o cualquier otro mensaje relevante para el usuario, debe de hacerlo a través del _error estándar_ (`stderr`) pues este será ignorado por _model_wrapper_ cuando la petición es exitosa.
 
 Los resultados escritos en la salida estándar deben de estar en formato _JSON_ y seguir un esquema como el del siguiente ejemplo:
+[//]: # (cSpell:disable)
 ```json
 {
   "a": [
@@ -72,9 +77,11 @@ Los resultados escritos en la salida estándar deben de estar en formato _JSON_ 
   ]
 }
 ```
+[//]: # (cSpell:enable)
 
 Estos resultados son traducidos por `model_wrapper` en los resultados de la estructura [(leishmaniapp.cloud.model.Sample.results)](schema.md#muestras), ejemplo de los resultados traducidos en formato JSON:
 
+[//]: # (cSpell:disable)
 ```json
 {
   "a": {
@@ -92,12 +99,14 @@ Estos resultados son traducidos por `model_wrapper` en los resultados de la estr
   }
 }
 ```
+[//]: # (cSpell:enable)
 
 Si el modelo falla, debe de retornar con un código de terminación diferente de 0, de esta manera _model_wrapper_ puede determinar la falla y se utilizará el texto del _error estándar_ como mensaje de error
 
 #### Ejemplo
 A continuación un ejemplo del modelo para la enfermedad de pruebas _mock.spots_ utilizando _ALEF_, utilice este código como base para la implementación de _ALEF_ en sus propios modelos escritos en _Python_
 
+[//]: # (cSpell:disable)
 ```python
 #!/usr/bin/python
 
@@ -175,9 +184,10 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+[//]: # (cSpell:enable)
 
 ## Modelos de Diagnóstico Soportados
-A continuación una documentación de cada uno de los modelos de diagnóstico presentes en el respositorio de la organización de Leishmaniapp
+A continuación una documentación de cada uno de los modelos de diagnóstico presentes en el repositorio de la organización de Leishmaniapp
 
 ### Leishmaniasis con tinción Giemsa
 
@@ -185,7 +195,7 @@ El identificador para esta enfermedad es `leishmaniasis.giemsa`, y se compone de
 
 | Modelo                                    | Propósito                                                                                           | Repositorio                                                                                                                              | Elementos Diagnósticos   |
 | ----------------------------------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| leishmaniasis.giemsa.parasites            | Identificación del parásito _Leishmaniap spp._ en muestras de Leishmaniasis con tinción giemsa      | [github.com/leishmaniapp/leishmaniasis-giemsa-parasites-model](https://github.com/leishmaniapp/leishmaniasis-giemsa-parasites-model)     | `parasite`               |
+| leishmaniasis.giemsa.parasites            | Identificación del parásito _Leishmaniapp spp._ en muestras de Leishmaniasis con tinción giemsa     | [github.com/leishmaniapp/leishmaniasis-giemsa-parasites-model](https://github.com/leishmaniapp/leishmaniasis-giemsa-parasites-model)     | `parasite`               |
 | leishmaniasis.giemsa.macrophages          | Identificación de macrófagos en muestras de Leishmaniasis con tinción giemsa                        | [github.com/leishmaniapp/leishmaniasis-giemsa-macrophages-model](https://github.com/leishmaniapp/leishmaniasis-giemsa-macrophages-model) | `macrophage`             |
 | leishmaniasis.giemsa                      | Modelo conjunto (parásitos y macrófagos) con soporte para _[model_wrapper](cloud.md#model_wrapper)_ | [github.com/leishmaniapp/leishmaniasis-giemsa-disease](https://github.com/leishmaniapp/leishmaniasis-giemsa-disease)                     | `parasite`, `macrophage` |
 | com.leishmaniapp.lam.leishmaniasis.giemsa | Implementación _[LAM](lam.md)_ para Android de _leishmaniasis.giemsa_ (parásitos y macrófagos)      | [github.com/leishmaniapp/leishmaniasis-giemsa-lam-android](https://github.com/leishmaniapp/leishmaniasis-giemsa-lam-android)             | `parasite`, `macrophage` |
@@ -212,11 +222,11 @@ Este modelo no contiene a los macrófagos en una _bounding box_, en su lugar, re
 
 ### Malaria con tinción Romanowsky
 
-El identificador de esta enfermedad es `malaria.romanowsky` y es capaz de identificar leucocitos (`leukocyte`) y parásitos en 3 estadíos (`trophozoite`, `schizont` y `gametocyte`)
+El identificador de esta enfermedad es `malaria.romanowsky` y es capaz de identificar leucocitos (`leukocyte`) y parásitos en 3 estadios (`trophozoite`, `schizont` y `gametocyte`)
 
 | Modelo                                  | Propósito                                                                                                                       | Repositorio                                                                                                              | Elementos Diagnósticos                              |
 | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------- |
-| malaria.romanowksy                      | Identificación de leucocitos y parásitos (_Plasmodium spp._) en sus estadíos para muestras de Malaria con tinción de Romanowsky | [github.com/leishmaniapp/malaria-romanowsky-model](https://github.com/leishmaniapp/malaria-romanowsky-model)             | `leukocyte`,`trophozoite`, `schizont`, `gametocyte` |
+| malaria.romanowsky                      | Identificación de leucocitos y parásitos (_Plasmodium spp._) en sus estadios para muestras de Malaria con tinción de Romanowsky | [github.com/leishmaniapp/malaria-romanowsky-model](https://github.com/leishmaniapp/malaria-romanowsky-model)             | `leukocyte`,`trophozoite`, `schizont`, `gametocyte` |
 | com.leishmaniapp.lam.malaria.romanowsky | Implementación _[LAM](lam.md)_ para Android de _malaria.romanowsky_                                                             | [github.com/leishmaniapp/malaria-romanowsky-lam-android](https://github.com/leishmaniapp/malaria-romanowsky-lam-android) | `leukocyte`,`trophozoite`, `schizont`, `gametocyte` |
 
 A continuación un ejemplo de una muestra de malaria sin analizar y los resultados de una muestra analizada
@@ -236,12 +246,12 @@ El modelo divide la identificación en 6 etapas:
 3. Generación de máscara de parásitos a partir de la máscara de leucocitos
 4. Generación de recortes individuales de parásitos
 5. Clasificación de parásitos
-6. Clasificación de estadío de los parásitos
+6. Clasificación de estadio de los parásitos
 
-Las etapas del 1 al 4 se realizan exclusivamente mediante el uso de la librería _opencv_, la etapa de clasificación (5 y 6) utilizan clasificadores entrenados de _[TensorFlow Lite](https://www.tensorflow.org/)_ los cuales pueden ser encontrados en el directorio `src/models`, estos clasificadores se utilizan sobre cada uno de los recortes de parásitos individuales obtenidos en el paso anterior para determinar si son, o no, un parásito y el estadío en el que se encuentran
+Las etapas del 1 al 4 se realizan exclusivamente mediante el uso de la librería _opencv_, la etapa de clasificación (5 y 6) utilizan clasificadores entrenados de _[TensorFlow Lite](https://www.tensorflow.org/)_ los cuales pueden ser encontrados en el directorio `src/models`, estos clasificadores se utilizan sobre cada uno de los recortes de parásitos individuales obtenidos en el paso anterior para determinar si son, o no, un parásito y el estadio en el que se encuentran
 
 #### Análisis Externo
-Las etapas de clasificación (5 y 6) hacen uso de la librería _TensorFlow Lite_, sin embargo, algunas plataformas pueden beneficiarse de librerías nativas que puedan hacer uso de algunos recursos de hardware (como gpu's) a los que _Python_ no tiene acceso. (Caso concreto, modelo _LAM_ hace uso de la librería nativa de _TFLite_).
+Las etapas de clasificación (5 y 6) hacen uso de la librería _TensorFlow Lite_, sin embargo, algunas plataformas pueden beneficiarse de librerías nativas que puedan hacer uso de algunos recursos de hardware (como gpus) a los que _Python_ no tiene acceso. (Caso concreto, modelo _LAM_ hace uso de la librería nativa de _TFLite_).
 
 Por esto, las etapas de clasificación (5 y 6) pueden ser interrumpidas, y en su lugar; obtener los recortes individuales de parásitos que son el punto de partida para un análisis externo al modelo implementado en _Python_.
 
@@ -253,7 +263,7 @@ Para activar esta característica utilice el parámetro `--external-parasite-ana
 > ⚠️ Esta funcionalidad rompe con el esquema _ALEF_, por lo que esta opción no es compatible con _model_wrapper_
 
 ## Modelos de Prueba
-Las anteriores enfermedades pueden dificultar el proceso de depuración de la arquitectura, es por eso que existen otra clase de "enfermedades" que son utilizadas únicamente con fines de prueba, los modelos de detección correspondientes a estar enfermedades procesan imagenes de objetos cotidianos que permitan depurar facilmente problemas en la aplicación o arquitectura sin contar con una muestra de laboratorio.
+Las anteriores enfermedades pueden dificultar el proceso de depuración de la arquitectura, es por eso que existen otra clase de "enfermedades" que son utilizadas únicamente con fines de prueba, los modelos de detección correspondientes a estar enfermedades procesan imágenes de objetos cotidianos que permitan depurar fácilmente problemas en la aplicación o arquitectura sin contar con una muestra de laboratorio.
 
 ### Detector de Colores
 El identificador para esta enfermedad/modelo de prueba es `mock.spots`, detecta los principales canales de color en una imagen y calcula los centros de masa del parche de color más grande en la muestra.
@@ -263,7 +273,7 @@ El identificador para esta enfermedad/modelo de prueba es `mock.spots`, detecta 
 | mock.spots                      | Identificación de parches de color                          | [github.com/leishmaniapp/mock-spots-model](https://github.com/leishmaniapp/mock-spots-model)             | `red`, `green`, `blue`, `yellow`, `cyan`, `magenta` |
 | com.leishmaniapp.lam.mock.spots | Implementación _[LAM](lam.md)_ para Android de _mock.spots_ | [github.com/leishmaniapp/mock-spots-lam-android](https://github.com/leishmaniapp/mock-spots-lam-android) | `red`, `green`, `blue`, `yellow`, `cyan`, `magenta` |
 
-A continuación un ejemplo de una muestra de un cubo de rubik con los colores rojo, amarillo y verde; en contraste con la máscara generada por el modelo y un pequeño punto blanco marcando el _centro de masa_ de cada parche de color
+A continuación un ejemplo de una muestra de un cubo de Rubik con los colores rojo, amarillo y verde; en contraste con la máscara generada por el modelo y un pequeño punto blanco marcando el _centro de masa_ de cada parche de color
 
 | Muestra sin analizar                                           | Máscara generada                                           |
 | -------------------------------------------------------------- | ---------------------------------------------------------- |

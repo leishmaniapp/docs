@@ -16,7 +16,7 @@ Los esquemas Protobuf se utilizan para definir:
 ### ¿Por qué Protobuf?
 
 1. **Serialización eficiente**: Los mensajes Protobuf son más pequeños y rápidos de serializar/deserializar en comparación con otros formatos como JSON o XML.
-2. **Agnóstico del lenguaje**: Los esquemas Protobuf pueden compilarse en múltiples lenguajes de programación (como Python, Kotlin, Java), facilitando la interoperabilidad entre servicios.
+2. **Agnóstico del lenguaje**: Los esquemas Protobuf pueden compilarse en múltiples lenguajes de programación (como Python, Kotlin, Java), facilitando la interoperatividad entre servicios.
 3. **Compatibilidad hacia adelante y hacia atrás**: Protobuf permite que el esquema evolucione con el tiempo mientras mantiene la compatibilidad con versiones anteriores.
 
 ## Tipos de Datos Básicos
@@ -24,6 +24,7 @@ Los esquemas Protobuf se utilizan para definir:
 ### Respuesta de Estado
 La manera en la que los servicios indican al cliente si la petición ha sido exitosa o fallida es a través del tipo de dato **leishmaniapp.cloud.types.StatusResponse**, este incluye un [código de estado](#codigos-de-estado) y un texto opcional con la descripción del error, el mensaje se define de la siguiente manera:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.types;
 
@@ -32,11 +33,13 @@ message StatusResponse {
   optional string description = 2;
 }
 ```
+[//]: # (cSpell:enable)
 
 
 #### Códigos de Estado
-Los códigos de estado representan el resultado de la operación (Exitoso o Fallido) y el tipo de error que se presentó, estos códigos de estado están parcialmente basados en los [código de estado HTTP](https://developer.mozilla.org/es/docs/Web/HTTP/Status) y están definidos de la siguente manera:
+Los códigos de estado representan el resultado de la operación (Exitoso o Fallido) y el tipo de error que se presentó, estos códigos de estado están parcialmente basados en los [código de estado HTTP](https://developer.mozilla.org/es/docs/Web/HTTP/Status) y están definidos de la siguiente manera:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.types;
 
@@ -47,12 +50,13 @@ enum StatusCode {
   FORBIDDEN = 403;
   UNAUTHENTICATED = 401;
   NOT_FOUND = 404;
-  IM_A_TEAPOD = 418;
+  IM_A_TEAPOT = 418;
   UNPROCESSABLE_CONTENT = 422;
   INVALID_TOKEN = 498;
   INTERNAL_SERVER_ERROR = 500;
 }
 ```
+[//]: # (cSpell:enable)
 
 A continuación se explican todos los códigos de estado disponibles:
 
@@ -65,13 +69,14 @@ A continuación se explican todos los códigos de estado disponibles:
 | UNAUTHENTICATED       | 401    | Auth Error     | El usuario no se ha autenticado                                                                                      |
 | INVALID_TOKEN         | 498    | Auth Error     | El _Header_ de autenticación no contiene un esquema _Bearer_                                                         |
 | NOT_FOUND             | 404    | Client Error   | El recurso o servicio especificado no ha podido ser encontrado                                                       |
-| IM_A_TEAPOD           | 418    | Client Error   | El servicio no puede atender una solicitud para lo cual no fue diseñado, ej. Autenticarse en el servicio de Análisis |
+| IM_A_TEAPOT           | 418    | Client Error   | El servicio no puede atender una solicitud para lo cual no fue diseñado, ej. Autenticarse en el servicio de Análisis |
 | UNPROCESSABLE_CONTENT | 422    | Analysis Error | El requerimiento de análisis tiene contenido no válido que no puede ser analizado                                    |
 | INTERNAL_SERVER_ERROR | 500    | Server Error   | El servidor tuvo un error interno del cual no se pudo recuperar                                                      |
 
 ### Imágenes
-Los archivos de imágen se serializan byte por byte desde el archivo de origen en un array de _bytes_. Esta información se almacena en el tipo de dato **leishmaniapp.cloud.types.ImageBytes**, los bytes del archivo se colocan uno a uno en el campo _data_ y el tipo de archivo en formato [MIME](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) se almacena en el campo _mime_. Los servicios que requieran reconstruir la imagen pueden crear un archivo cuya extensión corresponda al tipo _MIME_ del campo _mime_ y escribir los _raw bytes_ del campo _data_ directamente en el archivo.
+Los archivos de imagen se serializan byte por byte desde el archivo de origen en un array de _bytes_. Esta información se almacena en el tipo de dato **leishmaniapp.cloud.types.ImageBytes**, los bytes del archivo se colocan uno a uno en el campo _data_ y el tipo de archivo en formato [MIME](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) se almacena en el campo _mime_. Los servicios que requieran reconstruir la imagen pueden crear un archivo cuya extensión corresponda al tipo _MIME_ del campo _mime_ y escribir los _raw bytes_ del campo _data_ directamente en el archivo.
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.types;
 
@@ -80,10 +85,12 @@ message ImageBytes {
   string mime = 4;
 }
 ```
+[//]: # (cSpell:enable)
 
 ### Coordenadas
 Las coordenadas de cada uno de los elementos identificados durante el análisis son representados por el tipo de dato **leishmaniapp.cloud.types.Coordinates**, este contiene las coordenadas _x_ y _y_ así como las dimensiones del bounding box _w_ y _h_. (Véase [modelos de análisis](models.md))
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.types;
 
@@ -96,6 +103,7 @@ message Coordinates {
 
 message ListOfCoordinates { repeated Coordinates coordinates = 1; }
 ```
+[//]: # (cSpell:enable)
 
 ## Modelo
 Los tipos de datos correspondientes al dominio de negocio de Leishmaniapp se encuentran en el archivo _model.proto_, a continuación un diagrama de clase representando los modelos y sus relaciones.
@@ -113,6 +121,7 @@ Existen tres variantes del modelo de especialista:
 
 La definición del modelo del especialista se encuentra a continuación:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.model;
 
@@ -140,12 +149,14 @@ message Specialist {
   repeated string diseases = 4;
 }
 ```
+[//]: # (cSpell:enable)
 
 ### Muestras
 Las muestras (_samples_) contienen información acerca de los resultados de análisis de cada una de las imágenes utilizadas durante el diagnóstico, estas muestras contienen los _metadatos_ relevantes, la _etapa de análisis_ actual, la información del _especialista_, un mapa con los _resultados_ y un indicador de la versión del modelo de diagnóstico. De la muestra base existen dos variantes: **Sample.WithoutStage** que excluye la información de la etapa de análisis y **Sample.WithError** que omite los campos de _stage_ y _results_, utilizada para almacenar muestras sin resultados
 
 Las muestras se definen a través de la siguiente estructura:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.model;
 
@@ -174,6 +185,7 @@ message Sample {
   }
 }
 ```
+[//]: # (cSpell:enable)
 
 #### Etapas de Análisis
 
@@ -182,15 +194,16 @@ Una vez se encola una petición de análisis para una muestra esta adquiere el e
 * **ANALYZING**: La imagen está siendo analizada, no ha llegado respuesta del modelo de análisis
 * **ERROR**: Error durante el análisis, el resultado ya fue entregado al usuario
 * **ERROR_DELIVER**: Error durante el análisis, el usuario no ha sido notificado del error, le será entregado en su próxima reconexión
-* **DELIVER**: Análisis exitoso, los resultados no han sido enviados al usuario, pendiende de entrega para su próxima reconexión
+* **DELIVER**: Análisis exitoso, los resultados no han sido enviados al usuario, pendiente de entrega para su próxima reconexión
 * **ANALYZED**: Análisis exitoso, los resultados fueron enviados correctamente el usuario
 
 El estado análisis progresa de acuerdo a la siguiente _máquina de estados_
 
 ![Máquina de estados (Etapas de análisis)](assets/schema/analysis_stages.png)
 
-Los estados se defininen en el esquema a través de la siguiente enumeración
+Los estados se definen en el esquema a través de la siguiente enumeración:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.model;
 
@@ -202,17 +215,19 @@ enum AnalysisStage {
   ANALYZED = 4;
 }
 ```
+[//]: # (cSpell:enable)
 
 #### Metadatos de la Muestra
 Las muestras tienen asociada información relevante para su almacenamiento, estos datos son:
 
 * **diagnosis**: UUID del diagnóstico asociado
 * **sample**: Número de muestra dentro del diagnóstico
-* **diasese**: Identificador de la enfermedad asociada
+* **disease**: Identificador de la enfermedad asociada
 * **date**: Fecha y hora de la toma de la muestra en [tiempo UNIX](https://es.wikipedia.org/wiki/Tiempo_Unix)
 
-Los metadatos de la imagen se definen a través de la siguente estructura:
+Los metadatos de la imagen se definen a través de la siguiente estructura:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.model;
 
@@ -225,12 +240,14 @@ message ImageMetadata {
   sint64 date = 4;
 }
 ```
+[//]: # (cSpell:enable)
 
 ### Diagnóstico
 Los diagnósticos (_diagnoses_) son la información concretada a partir de una serie de muestras y se almacena con el fin de formar una historia clínica, cada diagnóstico tiene un _identificador único_ en formato [UUID](https://es.wikipedia.org/wiki/Identificador_%C3%BAnico_universal), el _identificador_ de la enfermedad diagnosticada, la información básica del especialista que realizó el diagnóstico, un hash identificador del paciente, la cantidad de muestras que fueron utilizadas para el diagnóstico, la fecha y hora del diagnóstico en [tiempo UNIX](https://es.wikipedia.org/wiki/Tiempo_Unix), las observaciones adicionales del especialista y los resultados obtenidos.
 
-La estructura de diagnóstico se define de la siguiente manera
+La estructura de diagnóstico se define de la siguiente manera:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.model;
 
@@ -247,6 +264,7 @@ message Diagnosis {
   Results results = 8;
 }
 ```
+[//]: # (cSpell:enable)
 
 #### Resultados
 
@@ -261,6 +279,7 @@ La estructura de resultados se encuentra embebida en la estructura de diagnósti
 
 La estructura está definida de la siguiente manera:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.model;
 
@@ -275,6 +294,7 @@ message Diagnosis {
   ...
 }
 ```
+[//]: # (cSpell:enable)
 
 #### Hash del Paciente
 Con el fin de proteger la privacidad de los pacientes y anonimizar los datos acerca de ellos, almacena la información de los pacientes a través de un hash calculado a partir de su __tipo de documento__ seguido de un punto y su __número de documento__
@@ -300,6 +320,7 @@ El servicio de autenticación se define en el archivo `auth.proto`
 
 El código correspondiente es:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.auth;
 
@@ -329,6 +350,7 @@ message DecodeResponse {
   optional TokenPayload payload = 2;
 }
 ```
+[//]: # (cSpell:enable)
 
 #### Contenidos del token (TokenPayload)
 El _token_ de acceso está soportado por el estándar [JWT](https://jwt.io/), este estándar indica que los tokens deben de cargar un _payload_ con una serie de _claims_. La estructura **leishmaniapp.cloud.auth.TokenPayload** contiene toda la información serializada en este campo.
@@ -340,6 +362,7 @@ El _token_ de acceso está soportado por el estándar [JWT](https://jwt.io/), es
 
 El código correspondiente es:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.auth;
 
@@ -350,6 +373,7 @@ message TokenPayload {
   model.Specialist specialist = 4;
 }
 ```
+[//]: # (cSpell:enable)
 
 ### Muestras
 Servicio encargado de almacenar, actualizar, recuperar y eliminar muestras. Este servicio actúa como un repositorio de datos para las muestras.
@@ -364,6 +388,7 @@ Servicio encargado de almacenar, actualizar, recuperar y eliminar muestras. Este
 
 El código correspondiente es:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.samples;
 
@@ -401,6 +426,7 @@ message UndeliveredResponse {
     repeated model.Sample samples = 2;
 }
 ```
+[//]: # (cSpell:enable)
 
 ### Diagnósticos
 Servicio encargado de almacenar y consultar la información de diagnósticos consolidados como un repositorio de datos, permite insertar/actualizar y eliminar diagnósticos
@@ -412,6 +438,7 @@ Servicio encargado de almacenar y consultar la información de diagnósticos con
 
 El código correspondiente es:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.diagnoses;
 
@@ -429,6 +456,7 @@ message DiagnosisResponse {
     optional model.Diagnosis diagnosis = 2;
 }
 ```
+[//]: # (cSpell:enable)
 
 ### Análisis
 
@@ -440,6 +468,7 @@ El servicio de análisis, a diferencia de los demás servicios, crea un canal de
 
 El código correspondiente es:
 
+[//]: # (cSpell:disable)
 ```proto
 package leishmaniapp.cloud.analysis;
 
@@ -461,3 +490,4 @@ message AnalysisResponse {
     }
 }
 ```
+[//]: # (cSpell:enable)

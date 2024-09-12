@@ -1,22 +1,22 @@
-# 🌎 Cloud
+# 🌎 Infraestructura
 Leishmaniapp es una arquitectura de almacenamiento de información diagnóstica y procesamiento de imágenes, _LeishmaniappCloudServicesV2_ es el nombre asignado al conjunto de servicios en nube capaces de proveer esta funcionalidad
 
 ## Vista General de la Arquitectura
 _LeishmaniappCloudServicesV2_ es una arquitectura basada en [microservicios](https://aws.amazon.com/es/microservices/), cada uno de estos servicios se encarga de una funcionalidad específica, opera de manera independiente y se comunica con los demás elementos de la arquitectura a través de una API [gRPC](https://grpc.io/) y un esquema de datos predefinido. (Visite [_Protobuf Schema_](schema.md) para más información acerca de la API.)
 
-![Diagrama de infrastructura de nube](assets/cloud/cloud.png)
+![Diagrama de infraestructura de nube](assets/cloud/cloud.png)
 
 ## Componentes
-La arquitectura _LeishmaniappCloudServicesV2_ atiende a un cliente (usualmente, pero no limitado a, [_aplicación de Leishmaniapp_](application.md)) a través de la API de gRPC utilizando el protocolo HTTP/2 (sin encriptación). Las peticiones deberán ser atendidas por un [Gateway](#service_gateway) a través de un único puerto TCP y redirigidas al microservicio capaz de atender la solicitud, el gateway también provee un servicio de _health check_ con el cual los clientes pueden validar la conexión con el servidor.
+La arquitectura _LeishmaniappCloudServicesV2_ atiende a un cliente (usualmente, pero no limitado a, [_aplicación de Leishmaniapp_](application.md)) a través de la API de gRPC utilizando el protocolo HTTP/2 (sin encriptado). Las peticiones deberán ser atendidas por un [Gateway](#service_gateway) a través de un único puerto TCP y redirigidas al microservicio capaz de atender la solicitud, el gateway también provee un servicio de _health check_ con el cual los clientes pueden validar la conexión con el servidor.
 
-Cada uno de los microservicios atiende un único servicio definido en [protobuf_schema.](schema.md), estos son: [Autenticación](#auth_service), [Almacenamiento de Diagnósticos](#diagnoses_service), [Almacenamiento de muestras](#samples_service) y [Análisis](#analysis_service). Este último mantiene un stream de datos, a través de una conexión bidireccional full-duplex entre el cliente y el servidor, con la cual múltiples peticiones de análisis pueden ser enviadas y sus resultados entregados de manera asíncrona, esto difiere con los demás servicios que son de tipo _unicast_.
+Cada uno de los microservicios atiende un único servicio definido en [protobuf_schema.](schema.md), estos son: [Autenticación](#auth_service), [Almacenamiento de Diagnósticos](#diagnoses_service), [Almacenamiento de muestras](#samples_service) y [Análisis](#analysis_service). Este último mantiene un stream de datos, a través de una conexión bidireccional entre el cliente y el servidor, con la cual múltiples peticiones de análisis pueden ser enviadas y sus resultados entregados de manera asíncrona, esto difiere con los demás servicios que son de tipo _unicast_.
 
-Las peticiones de análisis son enviadas a un [servicio de mensajería](#servicio-de-mensajeria) que entregará la petición a un servicio de análisis específico para cada enfermedad a diagnosticar, estos servicios pueden ser implementados en cualquier lenguaje de programación y se incorporan en la arquitectura a través de un [servicio de encapsulamiento](#model_wrapper), para ello los binarios encargados del análisis deben estar en conformidad con el formato [ALEF](models.md#alef-adapter-layer-exec-format) (Visite [_Modelos de Detección_](models.md) para más información). Los resultados de análisis son enviados al servicio de mensajería quien entregará los resultados al servicio de análisis, se guardará la información de la muestra a través del servicio de almacenamiento de muestras y se enviarán los resultados al cliente de manera asíncrona.
+Las peticiones de análisis son enviadas a un [servicio de mensajería](#servicio-de-mensajeria) que entregará la petición a un servicio de análisis específico para cada enfermedad a diagnosticar, estos servicios pueden ser implementados en cualquier lenguaje de programación y se incorporan en la arquitectura a través de un [servicio de encapsulado](#model_wrapper), para ello los binarios encargados del análisis deben estar en conformidad con el formato [ALEF](models.md#alef-adapter-layer-exec-format) (Visite [_Modelos de Detección_](models.md) para más información). Los resultados de análisis son enviados al servicio de mensajería quien entregará los resultados al servicio de análisis, se guardará la información de la muestra a través del servicio de almacenamiento de muestras y se enviarán los resultados al cliente de manera asíncrona.
 
 ### Microservicios
-> 💡 Los repositorios de cada uno de los servicios hacen uso de  _submódulos de git_, no olvide inicializarlos con `git submodule update --init --recursive` después de clonar el repositorio.
+> 💡 Los repositorios de cada uno de los servicios hacen uso de  _sub-módulos de git_, no olvide inicializarlos con `git submodule update --init --recursive` después de clonar el repositorio.
 
-> 💡 Para la creación de las imagenes de contenedores utilize el comando `docker build -t <nombre> -f deployment/Containerfile .`, donde `<nombre>` es reemplazado por el nombre que se le asignará a la imagen.
+> 💡 Para la creación de las imágenes de contenedores utilice el comando `docker build -t <nombre> -f deployment/Containerfile .`, donde `<nombre>` es reemplazado por el nombre que se le asignará a la imagen.
 
 Cada uno de los microservicios anteriormente mencionados son descritos a detalle en esta sección.
 
@@ -33,8 +33,9 @@ Estos servicios también pueden ser protegidos de accesos no autorizados mediant
 
 ##### Configuración
 
-A continuación un ejemplo del archivo de configuración **config.yaml**, este archivo es utilizado en la [infrastructura con Kubernetes](#infrastructura-kubernetes)
+A continuación un ejemplo del archivo de configuración **config.yaml**, este archivo es utilizado en la [infraestructura con Kubernetes](#infraestructura-kubernetes)
 
+[//]: # (cSpell:disable)
 ```yaml
 # Server configuration
 server:
@@ -66,7 +67,7 @@ resources:
     port: 9872
     protected: true
 ```
-
+[//]: # (cSpell:enable)
 
 #### auth_service
 
@@ -86,6 +87,7 @@ El servicio tiene las siguiente propiedades
 
 Ejemplo de un registro en la base de datos:
 
+[//]: # (cSpell:disable)
 ```json
 {
   "email": "leishmaniapp@javeriana.edu.co",
@@ -95,10 +97,13 @@ Ejemplo de un registro en la base de datos:
   "token": null
 }
 ```
+[//]: # (cSpell:enable)
 
 ##### Configuración
 
 Para configurar la base de datos y demás propiedades del servicio, se debe de proveer el siguiente archivo __.env__
+
+[//]: # (cSpell:disable)
 ```bash
 # Run in debug mode (optional, default=false)
 DEBUG=0
@@ -123,6 +128,7 @@ DATABASE_TABLE=users
 # Remove double quotes for container .env
 SECRET_KEY="your-secret-key"
 ```
+[//]: # (cSpell:enable)
 
 #### diagnoses_service
 > 📚 Link del repositorio: [https://github.com/leishmaniapp/diagnoses_service](https://github.com/leishmaniapp/diagnoses_service).
@@ -135,6 +141,7 @@ Este servicio almacena los diagnósticos finalizados por el especialista, estos 
 
 La información debe de ser consolidada en una base de datos _mongodb_ y los parámetros de conexión deben de ser declarados a través de variables de entorno o un archivo _.env_.
 
+[//]: # (cSpell:disable)
 ```bash
 # Run in debug mode (Optional, Default=0)
 DEBUG=0
@@ -154,6 +161,7 @@ DATABASE_TABLE=diagnoses
 # Database operations timeout
 DATABASE_TIMEOUT=10
 ```
+[//]: # (cSpell:enable)
 
 #### samples_service
 > 📚 Link del repositorio: [https://github.com/leishmaniapp/samples_service](https://github.com/leishmaniapp/samples_service).
@@ -166,6 +174,7 @@ Este servicio se encarga de almacenar los metadatos correspondientes a las muest
 
 Este servicio requiere de una conexión a una base de datos _mongodb_, así como un directorio en donde almacenar las imágenes diagnósticas. Esta configuración debe de ser declarada a través de variables de entorno o un archivo _.env_
 
+[//]: # (cSpell:disable)
 ```bash
 # Run in debug mode (Optional, Default=0)
 DEBUG=0
@@ -190,6 +199,7 @@ DATABASE_TABLE=samples
 # Remove double quotes for container .env
 STORAGE_PATH="./storage"
 ```
+[//]: # (cSpell:enable)
 
 
 #### analysis_service
@@ -204,7 +214,7 @@ Este servicio requiere del _pseudo-header HTTP/2_ `:from` el cual contiene el _e
 
 El [gateway](#service_gateway) es el servicio responsable de validar que el _header From_ coincida con el campo _email_ del token de autenticación del _header Authorization_
 
-##### Órden de operación
+##### Orden de operación
 
 Una vez el cliente inicia una conexión con el servicio de análisis:
 
@@ -233,6 +243,7 @@ Este servicio requiere las credenciales de acceso al _broker_ para el _servicio 
 
 Esta configuración debe de ser especificada a través de variables de entorno o un archivo _.env_, a continuación un ejemplo de configuración mediante un archivo _.env_
 
+[//]: # (cSpell:disable)
 ```bash
 # Run in debug mode (Optional, Default=0)
 DEBUG=0
@@ -258,6 +269,7 @@ MESSAGE_BROKER=amqp://user:pass@localhost:5672/
 # URL to the samples service RPC service
 SAMPLES_SERVICE=localhost:9874
 ```
+[//]: # (cSpell:enable)
 
 #### model_wrapper
 > 📚 Link del repositorio: [https://github.com/leishmaniapp/model_wrapper](https://github.com/leishmaniapp/model_wrapper).
@@ -268,13 +280,14 @@ Permite la integración entre los [modelos de análisis](models.md) y _Leishmani
 
 ##### Funcionamiento
 
-Los modelos de análisis deben de ser ejecutables en conformidad con el formato [ALEF](models.md#alef-adapter-layer-exec-format), la invocación de estos ejecutables se realiza a través de la _llamada al sistema [exec](https://en.wikipedia.org/wiki/Exec_(system_call))_ o similiar (`std::process::Command::new` en Rust). Los resultados de análisis son recolectados de la _salida estándar (**stdout**)_ si el resultado de ejecución es 0, el output del _error estándar (**stderr**)_ es ignorado durante la ejecución
+Los modelos de análisis deben de ser ejecutables en conformidad con el formato [ALEF](models.md#alef-adapter-layer-exec-format), la invocación de estos ejecutables se realiza a través de la _llamada al sistema [exec](https://en.wikipedia.org/wiki/Exec_(system_call))_ o similar (`std::process::Command::new` en Rust). Los resultados de análisis son recolectados de la _salida estándar (**stdout**)_ si el resultado de ejecución es 0, el output del _error estándar (**stderr**)_ es ignorado durante la ejecución
 
 ##### Configuración
 El archivo de configuración **config.yaml** determinará el _id_ de la enfermedad a diagnosticar, la versión del modelo y el _path_ de los _modelos de análisis_ que serán ejecutados, ya sea en serie o paralelo.
 
-A continuación un archivo de configuración extraído de la enfermedad [_leishmaniasis.giemesa_](https://github.com/leishmaniapp/leishmaniasis-giemsa-disease/tree/main). En esta configuración, dos modelos de análisis (_macrophages_ y _parasites_) se ejecutan en paralelo con la misma imagen de entrada.
+A continuación un archivo de configuración extraído de la enfermedad [_leishmaniasis.giemsa_](https://github.com/leishmaniapp/leishmaniasis-giemsa-disease/tree/main). En esta configuración, dos modelos de análisis (_macrophages_ y _parasites_) se ejecutan en paralelo con la misma imagen de entrada.
 
+[//]: # (cSpell:disable)
 ```yaml
 disease: leishmaniasis.giemsa
 version: "2.0.0"
@@ -285,9 +298,11 @@ exec:
   - path: "/usr/local/bin/python"
     args: ["./parasites/src/alef.py"]
 ```
+[//]: # (cSpell:enable)
 
 A continuación un ejemplo genérico explorando todas las capacidades del archivo de configuración
 
+[//]: # (cSpell:disable)
 ```yaml
 # Which disease is this model going to identify, use the disease ID
 disease: "mock.chain"
@@ -344,124 +359,174 @@ exec:
     filter: null
     next: null
 ```
+[//]: # (cSpell:enable)
+
 ###### Esquema para el archivo de configuración **config.yaml**
 
+[//]: # (cSpell:disable)
 ```yaml
 disease: string
 version: string
 exec: ModelExecutor[]
 ```
+[//]: # (cSpell:enable)
 
 ModelExecutor type
 
 | field   | type                          | description                                                                                                                                       |
 | ------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | path    | string                        | Absolute path to the executable                                                                                                                   |
-| include | bool                          | Will the results of this model be appended to the respnse?                                                                                        |
+| include | bool                          | Will the results of this model be appended to the response?                                                                                       |
 | filter  | string[] _or_ null            | Which elements returned by the model will be appended to the response                                                                             |
 | args    | string[]                      | Additional arguments to pass to the model                                                                                                         |
 | next    | **ModelExecutor**[] _or_ null | List with future analysis models to call when the current one finishes, the output of these analysis models will be the output of the current one |
 
 ### Servicio de Mensajería
-El servicio de mensajería hace uso del protocolo [AMQP 0-9-1](https://www.rabbitmq.com/tutorials/amqp-concepts) (específicamente [RabbitMQ](https://www.rabbitmq.com/) es utilizado como broker) para hacer entrega de las peticiones y resultados de análisis.
+El servicio de mensajería hace uso del protocolo [AMQP 0-9-1](https://www.RabbitMQ.com/tutorials/amqp-concepts) (específicamente [RabbitMQ](https://www.RabbitMQ.com/) es utilizado como broker) para hacer entrega de las peticiones y resultados de análisis.
 
 #### Peticiones
 Las peticiones de análisis se realizan desde el [servicio de análisis](#analysis_service) a través de un _exchange_ nombrado `analysis:requests` de tipo **topic**, este exchange debe de tener una cola para cada una de las enfermedades soportadas y el nombre de estas colas corresponde al **[identificador único](diseases.md) de la enfermedad**, por lo general las colas deberían de ser creadas por el modelo al iniciar y eliminadas al finalizar.
 
 Las peticiones de análisis deben llevar como tópico el _identificador único_ de la enfermedad a diagnosticar, y los modelos de análisis capaces de diagnosticar esa enfermedad deben de suscribirse para recibir y procesar solicitudes.
 
-![MQ Request Diagram](assets/cloud/mq_request.png)
+![Diagrama de peticiones enviadas al MQ](assets/cloud/mq_request.png)
 
 #### Resultados
-Una vez establecida una conexión entre el cliente y el servicio de análisis, este último debe de crear una cola cuyo nombre corresponde al **email del especialista** en un _exchange_ de nombre `analysis:response` y de tipo **direct**, esta cola es _transiente_ y _efímera_ por lo cuál sólo tiene un suscriptor y es eliminada una vez este libera la conexión. El servicio de análisis debe de liberar la conexión una vez el cliente es deconectado.
+Una vez establecida una conexión entre el cliente y el servicio de análisis, este último debe de crear una cola cuyo nombre corresponde al **email del especialista** en un _exchange_ de nombre `analysis:response` y de tipo **direct**, esta cola es _transitoria_ y _efímera_ por lo cuál sólo tiene un suscriptor y es eliminada una vez este libera la conexión. El servicio de análisis debe de liberar la conexión una vez el cliente es desconectado.
 
 Los resultados de análisis se envían desde alguno de los modelos hacia la cola cuyo nombre es equivalente al **email del especialista**, de esta manera los resultados pueden ser entregados de manera inmediata.
 
 El modelo debe de recibir una confirmación de recepción por parte del servicio de análisis que atiende al cliente destino de los resultados, el servicio de análisis puede marcar la entrega como fallida en caso de que el cliente haya abandonado la conexión. Si el mensaje no pudo ser entregado, el modelo debe de reenviar los resultados a la cola de nombre `global`, esta cola actúa como una _cola de mensajes muertos_ y entregará los resultados a cualquiera de los servicios de análisis disponibles para su almacenamiento (Todos los servicios de análisis deben de estar suscritos a la cola `global`).
 
-![MQ Response Diagram](assets/cloud/mq_response.png)
+![Diagrama de respuestas enviadas al MQ](assets/cloud/mq_response.png)
 
-## Infrastructura (Kubernetes)
+## infraestructura (Kubernetes)
 
 Esta es la plantilla base para generar una configuración declarativa de _Kubernetes_ para _LeishmaniappCloudServicesV2_.
+
 ![Diagrama de despliegue en Kubernetes](assets/cloud/kubernetes.png)
 
 ### Instrucciones de Despliegue
 
 1. Crear los volúmenes requeridos
-    1. **Volumen de la Base de Datos:** Contiene la base de datos **mongodb**, que incluye todas las colecciones de _autenticación_, _muestras_ y _diagnósticos_. Este volumen debe ser persistido y protegido, ya que contiene los datos principales de la aplicación.
-    2. **Volumen del Repositorio de Muestras:** Contiene todos los archivos de imágenes sin procesar de muestras subidas a través de _leishmaniapp.cloud.analysis.AnalysisService_. Debe ser persistido y tener una gran capacidad de almacenamiento. Este volumen debe tratarse como un **data lake** para el entrenamiento de modelos, pero las copias de seguridad no son tan cruciales.
+
+      1. **Volumen de la Base de Datos:** Contiene la base de datos **mongodb**, que incluye todas las colecciones de _autenticación_, _muestras_ y _diagnósticos_. Este volumen debe ser persistido y protegido, ya que contiene los datos principales de la aplicación.
+  
+      2. **Volumen del Repositorio de Muestras:** Contiene todos los archivos de imágenes sin procesar de muestras subidas a través de _leishmaniapp.cloud.analysis.AnalysisService_. Debe ser persistido y tener una gran capacidad de almacenamiento. Este volumen debe tratarse como un **data lake** para el entrenamiento de modelos, pero las copias de seguridad no son tan cruciales.
 
 2. Crear los _namespaces_
+   
+	 Todos los componentes están aislados dentro de [_namespaces de Kubernetes_](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/). Los namespaces son los siguientes:
 
-   Todos los componentes están aislados dentro de [_namespaces de Kubernetes_](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/). Los namespaces son los siguientes:
-    1. **mongodb:** Contiene el [_MongoDB Community Kubernetes Operator_](https://github.com/mongodb/mongodb-kubernetes-operator) y las bases de datos _mongodb_ desplegadas (una primaria y dos secundarias con afinidad de pod) por defecto.
-    2. **rabbitmq:** Contiene el [_RabbitMQ Kubernetes Cluster Operator_](https://github.com/rabbitmq/cluster-operator) y la cola de mensajes _rabbitmq_ desplegada.
-    3. **leishmaniapp:** Contiene todos los servicios de _Leishmaniapp_ (Gateway, AuthService, SamplesService, DiagnosesService y AnalysisService), sus secretos correspondientes, configuraciones y [_ClusterIP services_](https://kubernetes.io/es/docs/concepts/services-networking/service/).
-    4. **models:** Contiene todos los servicios de análisis desplegados compatibles con el MQ.
+      1. **mongodb:** Contiene el [_MongoDB Community Kubernetes Operator_](https://github.com/mongodb/mongodb-kubernetes-operator) y las bases de datos _mongodb_ desplegadas (una primaria y dos secundarias con afinidad de pod) por defecto.
 
-   Para crear los _namespaces_ requeridos, use el siguiente comando:
-   ```shell
-   kubectl apply -R -f k8s/00-namespace
-   ```
+      2. **RabbitMQ:** Contiene el [_RabbitMQ Kubernetes Cluster Operator_](https://github.com/RabbitMQ/cluster-operator) y la cola de mensajes _RabbitMQ_ desplegada.
+
+      3. **leishmaniapp:** Contiene todos los servicios de _Leishmaniapp_ (Gateway, AuthService, SamplesService, DiagnosesService y AnalysisService), sus secretos correspondientes, configuraciones y [_ClusterIP services_](https://kubernetes.io/es/docs/concepts/services-networking/service/).
+
+      4. **models:** Contiene todos los servicios de análisis desplegados compatibles con el MQ.
+
+    Para crear los _namespaces_ requeridos, use el siguiente comando:
+
+    [//]: # (cSpell:disable)
+    ```shell
+    kubectl apply -R -f k8s/00-namespace
+    ```
+    [//]: # (cSpell:enable)
 
 3. Instalar los operadores de Kubernetes **MongoDB y RabbitMQ**
 
-   Estos suelen instalarse usando [**helm**](https://helm.sh/). Este repositorio utiliza la configuración declarativa de **helm** a través de [_helmfile_](https://github.com/roboll/helmfile). Instale la utilidad _helmfile_ siguiendo la documentación y luego utilice los siguientes comandos para desplegar los _charts_ de helm requeridos en el clúster de Kubernetes:
+    Estos suelen instalarse usando [**helm**](https://helm.sh/). Este repositorio utiliza la configuración declarativa de **helm** a través de [_helmfile_](https://github.com/roboll/helmfile). Instale la utilidad _helmfile_ siguiendo la documentación y luego utilice los siguientes comandos para desplegar los _charts_ de helm requeridos en el clúster de Kubernetes:
+
+    [//]: # (cSpell:disable)
     ```shell
     helmfile init
     helmfile apply
     ```
+    [//]: # (cSpell:enable)
 
 4. Desplegar y configurar la base de datos **mongodb**
 
-    1. Despliegue _mongodb_ en el clúster usando el siguiente comando:
-       ```shell
-       kubectl apply -R -f k8s/10-mongodb
-       ```
-    2. Use las credenciales proporcionadas en el archivo `01-credentials.yaml` para acceder a la base de datos a través del servicio `mongodb-nodeport`. Una vez conectado, cree las bases de datos y colecciones requeridas (authDB/specialists, samplesDB/samples, diagnosesDB/diagnoses) y agregue las restricciones necesarias.
-    3. Obtenga la _cadena de conexión_ necesaria para que los microservicios accedan a la base de datos a través de los secretos proporcionados por el operador de _mongodb_. Liste estos secretos con:
-       ```shell
-       kubectl -n mongodb get secrets
-       ```
-    4. Use las credenciales para establecer los secretos requeridos en cada uno de los servicios.\
-       Ejemplo: Obtenga las credenciales de _AuthService_ con el siguiente comando:
-       ```shell
-       kubectl -n mongodb get secret mongodb-database-admin-authserviceuser -o json | jq -r ".data"
-       ```
-       Con las credenciales predeterminadas, la salida del comando debería ser (valores codificados en base64):
-```json
-  {
-    "connectionString.standard": "bW9uZ29kYjovL2F1dGhTZXJ2aWNlVXNlcjphdXRoU2VydmljZVBhc3N3b3JkMUBtb25nb2RiLWRhdGFiYXNlLTAubW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbDoyNzAxNyxtb25nb2RiLWRhdGFiYXNlLTEubW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbDoyNzAxNy9hZG1pbj9yZXBsaWNhU2V0PW1vbmdvZGItZGF0YWJhc2Umc3NsPWZhbHNl",
-    "connectionString.standardSrv": "bW9uZ29kYitzcnY6Ly9hdXRoU2VydmljZVVzZXI6YXV0aFNlcnZpY2VQYXNzd29yZDFAbW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbC9hZG1pbj9yZXBsaWNhU2V0PW1vbmdvZGItZGF0YWJhc2Umc3NsPWZhbHNl",
-    "password": "YXV0aFNlcnZpY2VQYXNzd29yZDE=",
-    "username": "YXV0aFNlcnZpY2VVc2Vy"
-  }
-```
-       Copie el valor de _connectionString.standard_ y péguelo en la clave _database-str_ dentro del archivo `30-services/20-auth-service/10_secret.yaml`. Lo mismo se requiere para los servicios de _Diagnoses_ y _Samples_.
-
-5. Desplegar y configurar el servicio MQ **rabbitmq**
-    1. Despliegue _RabbitMQ_ en el clúster usando el siguiente comando:
+     1. Despliegue _mongodb_ en el clúster usando el siguiente comando
+      
+        [//]: # (cSpell:disable)
         ```shell
-        kubectl apply -R -f k8s/20-rabbitmq
+        kubectl apply -R -f k8s/10-mongodb
         ```
-    2. Obtenga las credenciales predeterminadas usando el secreto `rabbitmq-cluster-default-user`. Se sugiere el siguiente comando (_kubectl_ y _jq_ requeridos):
-       ```shell
-       kubectl -n rabbitmq get secret rabbitmq-cluster-default-user -o json | jq -r ".data | with_entries(.value |= @base64d)"
-       ```
+        [//]: # (cSpell:enable)
+      
+     2. Use las credenciales proporcionadas en el archivo `01-credentials.yaml` para acceder a la base de datos a través del servicio `mongodb-nodeport`. Una vez conectado, cree las bases de datos y colecciones requeridas (authDB/specialists, samplesDB/samples, diagnosesDB/diagnoses) y agregue las restricciones necesarias.
+    
+     3. Obtenga la _cadena de conexión_ necesaria para que los microservicios accedan a la base de datos a través de los secretos proporcionados por el operador de _mongodb_. Liste estos secretos con:
+
+        [//]: # (cSpell:disable)
+        ```shell
+        kubectl -n mongodb get secrets
+        ```
+        [//]: # (cSpell:enable)
+
+     4. Use las credenciales para establecer los secretos requeridos en cada uno de los servicios. Ejemplo: Obtenga las credenciales de _AuthService_ con el siguiente comando:
+
+        [//]: # (cSpell:disable)
+        ```shell
+        kubecFtl -n mongodb get secret mongodb-database-admin-authserviceuser -o json | jq -r ".data"
+        ```
+        [//]: # (cSpell:enable)
+      
+        Con las credenciales predeterminadas, la salida del comando debería ser (valores codificados en base64):
+      
+        [//]: # (cSpell:disable)
+        ```json
+        {
+          "connectionString.standard": "bW9uZ29kYjovL2F1dGhTZXJ2aWNlVXNlcjphdXRoU2VydmljZVBhc3N3b3JkMUBtb25nb2RiLWRhdGFiYXNlLTAubW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbDoyNzAxNyxtb25nb2RiLWRhdGFiYXNlLTEubW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbDoyNzAxNy9hZG1pbj9yZXBsaWNhU2V0PW1vbmdvZGItZGF0YWJhc2Umc3NsPWZhbHNl",
+          "connectionString.standardSrv": "bW9uZ29kYitzcnY6Ly9hdXRoU2VydmljZVVzZXI6YXV0aFNlcnZpY2VQYXNzd29yZDFAbW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbC9hZG1pbj9yZXBsaWNhU2V0PW1vbmdvZGItZGF0YWJhc2Umc3NsPWZhbHNl",
+          "password": "YXV0aFNlcnZpY2VQYXNzd29yZDE=",
+          "username": "YXV0aFNlcnZpY2VVc2Vy"
+        }
+        ```
+        [//]: # (cSpell:enable)
+
+      	Copie el valor de _connectionString.standard_ y utilícelo en la clave _database-str_ dentro del archivo `30-services/20-auth-service/10_secret.yaml`. Lo mismo se requiere para los servicios de _Diagnoses_ y _Samples_.
+
+5. Desplegar y configurar el servicio MQ **RabbitMQ**
+   
+     1. Despliegue _RabbitMQ_ en el clúster usando el siguiente comando:
+        
+        [//]: # (cSpell:disable)
+        ```shell
+        kubectl apply -R -f k8s/20-RabbitMQ
+        ```
+        [//]: # (cSpell:enable)
+
+     2. Obtenga las credenciales predeterminadas usando el secreto `RabbitMQ-cluster-default-user`. Se sugiere el siguiente comando (_kubectl_ y _jq_ requeridos):
+   
+       	[//]: # (cSpell:disable)
+       	```shell
+       	kubectl -n RabbitMQ get secret RabbitMQ-cluster-default-user -o json | jq -r ".data | with_entries(.value |= @base64d)"
+       	```
+       	[//]: # (cSpell:enable)
+
     3. Use el servicio `management` NodePort para acceder a la _Consola de Gestión de RabbitMQ_ y crear los usuarios *analysis* y *model* con sus contraseñas, y configurar los permisos de lectura+escritura del _vhost_ '/'.
 
 6. Desplegar los servicios de Leishmaniapp
-    1. Configure los _secrets_ y las _configuraciones_ correspondientes de acuerdo con las credenciales configuradas para los servicios de **mongodb** y **rabbitmq**.
+    1. Configure los _secrets_ y las _configuraciones_ correspondientes de acuerdo con las credenciales configuradas para los servicios de **mongodb** y **RabbitMQ**.
+
     2. Despliegue los servicios usando el siguiente comando:
-       ```shell
-       kubectl apply -R -f k8s/30-services
-       ```
+			 
+	  	  [//]: # (cSpell:disable)
+	  	  ```shell
+	  	  kubectl apply -R -f k8s/30-services
+	  	  ```
+	  	  [//]: # (cSpell:enable)
 
 7. Desplegar los _modelos de análisis_
 
-    1. Configure el _secret_ correspondiente según las credenciales configuradas para el servicio **rabbitmq**.
+    1. Configure el _secret_ correspondiente según las credenciales configuradas para el servicio **RabbitMQ**.
+    
     2. Despliegue los servicios usando el siguiente comando:
-       ```shell
-       kubectl apply -R -f k8s/40-models
-       ```
+       
+      	[//]: # (cSpell:disable)
+      	```shell
+      	kubectl apply -R -f k8s/40-models
+      	```
+      	[//]: # (cSpell:enable)

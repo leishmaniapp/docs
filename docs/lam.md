@@ -21,6 +21,7 @@ Para crear modelos _LAM_ que puedan ser utilizados por la aplicación de Leishma
 1. Cree una nueva aplicación sin ninguna actividad cuyo nombre de paquete sea `com.leishmaniapp.lam.<disease_id>`
 2. Incluya las dependencias de `analysis-jvm` en su proyecto (recuerde configurar los repositorios de JitPack, [visite la documentación](https://jitpack.io/))
 
+    [//]: # (cSpell:disable)
     ```groovy
     dependencies {
     	// analysis-jvm Core library
@@ -29,9 +30,11 @@ Para crear modelos _LAM_ que puedan ser utilizados por la aplicación de Leishma
     	implementation("com.github.leishmaniapp.analysis-jvm:android:<version>")
     }
     ```
+    [//]: # (cSpell:enable)
 
 3. Cree una clase encargada del manejo de peticiones de análisis, esta clase debe heredar de `com.leishmaniapp.analysis.lam.ILocalAnalysisModel`
 
+    [//]: # (cSpell:disable)
     ```java
     package com.leishmaniapp.analysis.lam;
 
@@ -41,15 +44,17 @@ Para crear modelos _LAM_ que puedan ser utilizados por la aplicación de Leishma
         Map<String, List<BoxCoordinates>> analyze(File content) throws LamException;
     }
     ```
+    [//]: # (cSpell:enable)
 
     **getModel()** debe de retornar el _identificador_ del modelo, **load()** debe de ser llamado al cargar el modelo _LAM_ y es aquí donde se debe hacer inicialización de cualquier recurso que pueda ser requerido durante el análisis y **analyze()** es el método encargado de realizar el análisis de la muestra.
 
 4. Cree un _bound service_ que maneje las peticiones utilizando las utilidades del paquete `analysis-jvm:android`
 
-    Las peticiones de análisis son del tipo `com.leishmaniapp.analysis.lam.LamAnalysisRequest` y pueden ser recuperadas del _bundle_ del mensaje a través del método `LamAnalysisRequest::fromBundle`, los resultados por otra parte deben de ser entregados mediante la estructura `com.leishmaniapp.analysis.lam.LamAnalysisResponse` y una vez creada esta se puede transformar en un _bundle_ mediante el método `LamAnalysisresponse::toBundle`
+    Las peticiones de análisis son del tipo `com.leishmaniapp.analysis.lam.LamAnalysisRequest` y pueden ser recuperadas del _bundle_ del mensaje a través del método `LamAnalysisRequest::fromBundle`, los resultados por otra parte deben de ser entregados mediante la estructura `com.leishmaniapp.analysis.lam.LamAnalysisResponse` y una vez creada esta se puede transformar en un _bundle_ mediante el método `LamAnalysisResponse::toBundle`
 
-5. Exporte el servicio, agrege la acción `com.leishmaniapp.lam.ACTION_ANALYZE` y agrege permiso `com.leishmaniapp.lam.BIND_PERMISSION` (Para que los permisos tengan efecto, ambos Leishmaniapp y el _LAM_ deben de firmarse con la misma firma de desarrollador)
+5. Exporte el servicio, agregue la acción `com.leishmaniapp.lam.ACTION_ANALYZE` y agregue permiso `com.leishmaniapp.lam.BIND_PERMISSION` (Para que los permisos tengan efecto, ambos Leishmaniapp y el _LAM_ deben de firmarse con la misma firma de desarrollador)
 
+    [//]: # (cSpell:disable)
     ```xml
     <service
 	    android:name="com.leishmaniapp.lam.foobar.MyBoundService"
@@ -61,16 +66,18 @@ Para crear modelos _LAM_ que puedan ser utilizados por la aplicación de Leishma
 	    </intent-filter>
     </service>
     ```
+    [//]: # (cSpell:enable)
 
 ### Ejemplo
 
-Los siguientes snippets de código fueron obtenidos del modelo _LAM_ para la enfermedad de prueba _mock.spots_ ([Visite el repositorio](https://github.com/leishmaniapp/mock-spots-lam-android)).
+Los siguientes fragmentos de código fueron obtenidos del modelo _LAM_ para la enfermedad de prueba _mock.spots_ ([Visite el repositorio](https://github.com/leishmaniapp/mock-spots-lam-android)).
 
 ##### Bound Service
-Este es el servicio al cual la aplicación de Leishmaniapp se enlazará para enviar las peticiones de análisis, recibe un dato de tipo _LamAnalysisRequest_ a través de un _bundle_ cuya key es _**LAM_REQUEST_BUNDLE**_ (puede obtener este dato a través de la extensión `LamAnalysisRequest::fromBundle(Bundle, ClassLoader) -> LamAnalysisRequest?`) y retorna los resultados a través de un _bundle_ con un _AnalysisResultsParcel_ (una especializacion de _AnalysisResults_ que implementa _Parcelable_) y llave _**LAM_RESPONSE_BUNDLE**_ (puede obtener este bundle a través de la extensión `LamAnalysisRequest.toBundle() -> Bundle`)
+Este es el servicio al cual la aplicación de Leishmaniapp se enlazará para enviar las peticiones de análisis, recibe un dato de tipo _LamAnalysisRequest_ a través de un _bundle_ cuya key es _**LAM_REQUEST_BUNDLE**_ (puede obtener este dato a través de la extensión `LamAnalysisRequest::fromBundle(Bundle, ClassLoader) -> LamAnalysisRequest?`) y retorna los resultados a través de un _bundle_ con un _AnalysisResultsParcel_ (una especialización de _AnalysisResults_ que implementa _Parcelable_) y llave _**LAM_RESPONSE_BUNDLE**_ (puede obtener este bundle a través de la extensión `LamAnalysisRequest.toBundle() -> Bundle`)
 
 > 💡 Si su proyecto hace uso de _Jetpack Hilt_, puede utilizar este mismo código para su modelo _LAM_ pues no posee lógica particular a la enfermedad de _mock.spots_
 
+[//]: # (cSpell:disable)
 ```kotlin
 package com.leishmaniapp.lam.mock.spots.service
 
@@ -237,10 +244,12 @@ class IPCAnalysisService : Service() {
     }
 }
 ```
+[//]: # (cSpell:enable)
 
 ##### Implementación del modelo _LAM_
 A continuación un ejemplo de una implementación concreta de _ILocalAnalysisModel_ para ejecutar un modelo implementado en _Python_ a través del SDK de [Chaquopy](https://chaquo.com/chaquopy/)
 
+[//]: # (cSpell:disable)
 ```kotlin
 package com.leishmaniapp.lam.mock.spots.python
 
@@ -393,6 +402,7 @@ class PythonLamImpl @Inject constructor(
 * No hay actividades, este modelo es únicamente accesible a través del _bound service_
 * El servicio _.service.IPCAnalysisService_ está exportado (`android:exported="true"`), requiere el permiso `com.leishmaniapp.lam.BIND_PERMISSION` y tiene un _intent-filter_ con la acción `com.leishmaniapp.lam.ACTION_ANALYZE`
 
+[//]: # (cSpell:disable)
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -434,12 +444,14 @@ Dentro del directorio `app` puede encontrar el archivo `requirements.txt`, este 
 
 Este es un ejemplo de un archivo `requirements.txt`
 
+[//]: # (cSpell:disable)
 ```properties
 cvzone==1.6.1
 numpy==1.19.5
 opencv-python==4.5.1.48
 scikit-learn==1.1.3
 scikit-image==0.18.3
+[//]: # (cSpell:disable)
 ```cvzone==1.6.1
 numpy==1.19.5
 opencv-python==4.5.1.48
@@ -452,6 +464,7 @@ El código fuente de los modelos se encuentra en el directorio `app/src/main/pyt
 
 Si cambia el nombre del archivo deberá de especificar el nuevo nombre del módulo en el archivo `app/src/main/kotlin/com/leishmaniapp/lam/leishmaniasis/giemsa/python/PythonLamImpl.kt` en la variable `PARASITES_MODULE_NAME`
 
+[//]: # (cSpell:disable)
 ```kotlin
 package com.leishmaniapp.lam.leishmaniasis.giemsa.python
 ...
@@ -473,6 +486,7 @@ El punto de entrada para el análisis debe de ser una función con un único par
 
 A continuación un ejemplo sencillo del funcionamiento de la función de análisis
 
+[//]: # (cSpell:disable)
 ```python
 import cv2
 
@@ -495,6 +509,7 @@ def analyze(filepath):
 
 El nombre por defecto de esta función debe de ser `analyze`, sin embargo; es posible cambiar este nombre modificando el valor de la variable `ENTRY_POINT_ATTR` en el archivo `app/src/main/kotlin/com/leishmaniapp/lam/leishmaniasis/giemsa/python/PythonLamImpl.kt`.
 
+[//]: # (cSpell:disable)
 ```kotlin
 package com.leishmaniapp.lam.leishmaniasis.giemsa.python
 ...
@@ -516,6 +531,7 @@ Cualquier otro archivo adicional que se requiera durante la ejecución del model
 
 Ejemplo: suponga que desea utilizar un archivo `my_file.pkl`, la ruta final del archivo debe de ser `app/src/main/python/my_file.pkl` y puede obtener la ruta hacia este archivo durante la ejecución del modelo con el siguiente código:
 
+[//]: # (cSpell:disable)
 ```python
 import os
 import pathlib
