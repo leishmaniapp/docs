@@ -8,6 +8,8 @@
 
 Los modelos locales en Leishmaniapp son utilizados para realizar análisis cuando no hay un servicio de análisis disponible o no existe una conexión con el servidor, siempre que haya conexión hay que priorizar el servicio web sobre los modelos locales _LAM_.
 
+Visite [modelos de detección](models.md) para obtener información específica acerca de los modelos LAM disponibles para cada enfermedad
+
 ## Android
 Los modelos _LAM_ en Android son implementados a través de aplicaciones independientes que exponen [_bound services_](https://developer.android.com/develop/background-work/services/bound-services) que luego son enlazados por la aplicación de _Leishmaniapp_. Este método aprovecha la comunicación entre procesos _IPC_ que el sistema operativo provee al mismo tiempo que mantiene la independencia entre los módulos y la aplicación.
 
@@ -419,3 +421,109 @@ class PythonLamImpl @Inject constructor(
 
 </manifest>
 ```
+
+### LAM Python
+Es usual que algunos de estos modelos de análisis estén escritos con Python, a continuación se mostrará cómo actualizar los modelos en Python utilizando como ejemplo a la enfermedad `leishmaniasis.giemsa`. (Visite el repositorio para obtener el código fuente: [github.com/leishmaniapp/leishmaniasis-giemsa-lam-android](https://github.com/leishmaniapp/leishmaniasis-giemsa-lam-android))
+
+La implementación de este modelo está escrita enteramente en _Python_a, esto es posible gracias al _SDK_ de _[Chaquopy](https://chaquo.com/chaquopy/)_ el cual permite la ejecución del intérprete de _Python_ en el teléfono, gracias a esto es posible modificar el modelo sin necesidad de modificar el código navito en _Kotlin_ o cualquiera de las configuraciones de _Python_. Debido a las limitaciones del _SDK_ se recomiendo utilizar la versión de **Python 3.8**
+
+A continuación de explica cómo actualizar los modelos:
+
+#### Actualización de Librerías
+Dentro del directorio `app` puede encontrar el archivo `requirements.txt`, este archivo de texto plano contiene los nombres de las librerías y las versiones que serán instaladas mediante el gestor de paquetes _pip_, agrege, elimine o actualice las dependencias de acuerdo a la syntaxis oficial (Visite la [documentación oficial de PiP acerca de los archivos requirements.txt](https://pip.pypa.io/en/stable/reference/requirements-file-format/))
+
+Este es un ejemplo de un archivo `requirements.txt`
+
+```properties
+cvzone==1.6.1
+numpy==1.19.5
+opencv-python==4.5.1.48
+scikit-learn==1.1.3
+scikit-image==0.18.3
+```cvzone==1.6.1
+numpy==1.19.5
+opencv-python==4.5.1.48
+scikit-learn==1.1.3
+scikit-image==0.18.3
+```
+
+#### Actualización del código fuente de los modelos
+El código fuente de los modelos se encuentra en el directorio `app/src/main/python`, encuentre el archivo correspondiente al modelo que desea modificar y copie/pegue el código fuente en _Python_ que se desea ejecutar. Recuerde que los modelos deben de cumplir con el formato _[ALEF](models.md#alef-adapter-layer-exec-format)_
+
+Si cambia el nombre del archivo deberá de especificar el nuevo nombre del módulo en el archivo `app/src/main/kotlin/com/leishmaniapp/lam/leishmaniasis/giemsa/python/PythonLamImpl.kt` en la variable `PARASITES_MODULE_NAME`
+
+```kotlin
+package com.leishmaniapp.lam.leishmaniasis.giemsa.python
+...
+class PythonLamImpl @Inject constructor(...) : ILocalAnalysisModel {
+    ...
+    companion object {
+        ...
+        // !!! Modifique esta variable
+        // Coloque el nombre del archivo sin la extensión .py
+        const val PARASITES_MODULE_NAME: String = "parasites_v2"
+        ...
+    }
+...
+}
+```
+
+##### Función de análisis (Punto de entrada)
+El punto de entrada para el análisis debe de ser una función con un único parámetro de entrada de tipo `str`, este parámetro corresponde a la ruta relativa o absoluta hacia el archivo de imagen que se utilizará para el análisis, los resultados deben de ser del tipo `dict[str, list[dict[str, int]]]` y corresponden a las salidas definidas por _ALEF_.
+
+A continuación un ejemplo sencillo del funcionamiento de la función de análisis
+
+```python
+import cv2
+
+def analyze(filepath):
+    # type: (str) -> dict[str, list[dict[str, int]]]
+
+    # Leer la imagen
+    image = cv2.imread(filepath)
+
+    ...
+
+    # Retorne resultados como los de este ejemplo
+    return {
+        "parasite": [
+            { 'x': 10, 'y': 20, 'w': 5, 'h': 5 },
+            { 'x': 15, 'y': 10, 'w': 6, 'h': 3 }
+        ]
+    }
+```
+
+El nombre por defecto de esta función debe de ser `analyze`, sin embargo; es posible cambiar este nombre modificando el valor de la variable `ENTRY_POINT_ATTR` en el archivo `app/src/main/kotlin/com/leishmaniapp/lam/leishmaniasis/giemsa/python/PythonLamImpl.kt`.
+
+```kotlin
+package com.leishmaniapp.lam.leishmaniasis.giemsa.python
+...
+class PythonLamImpl @Inject constructor(...) : ILocalAnalysisModel {
+    ...
+    companion object {
+        ...
+        // !!! Modifique esta variable
+        // Coloque el nombre de la función
+        const val ENTRY_POINT_ATTR: String = "analyze"
+        ...
+    }
+...
+}
+```
+
+##### Archivos adicionales
+Cualquier otro archivo adicional que se requiera durante la ejecución del modelo (ej. archivos de _TensorFlow .tflite_ o archivos _pickle .pkl_) debe se colocarse en el mismo directorio que el código fuente en Python (`app/src/main/python`). Y debe de accederse usando una ruta relativa al archivo mediante la variable mágina `__file__`
+
+Ejemplo: suponga que desea utilizar un archivo `my_file.pkl`, la ruta final del archivo debe de ser `app/src/main/python/my_file.pkl` y puede obtener la ruta hacia este archivo durante la ejecución del modelo con el siguiente código:
+
+```python
+import os
+import pathlib
+
+my_file_path = os.path.join(
+    pathlib.Path(__file__).parent.absolute(),
+    "my_file.pkl",
+)
+```
+
+Ahora puede leer el archivo utilizando la variable `my_file_path` en _Python_. Recuerde que esto no aplica únicamente a los modelos _LAM_ de Leishmaniapp, sino que es considerado _mejores prácticas_ en la programación _Python_ en general.
