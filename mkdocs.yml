@@ -5,6 +5,8 @@ plugins:
   - with-pdf:
       output_path: document.pdf
       enabled_if_env: ENABLE_PDF_EXPORT
+      two_columns_level: 3
+      render_js: true
 
 theme:
   name: "material"
