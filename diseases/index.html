@@ -50,6 +50,8 @@
     
       <link rel="stylesheet" href="../stylesheets/color.css">
     
+      <link rel="stylesheet" href="../stylesheets/pdf.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -315,7 +317,7 @@
         
   
   <span class="md-ellipsis">
-    🌎 Cloud
+    🌎 Infraestructura
   </span>
   
 
@@ -424,11 +426,11 @@
 
 
 <h1 id="enfermedades">🦠 Enfermedades</h1>
-<p>Para la arquitectura de Leishmaniapp, una enfermedad será considerada como un módulo que define una serie de reglas que permiten llegar al diagnóstico de una enfermedad en particular, pues incluye una serie de elementos de interés (considerados dentro de Leishamiaapp como <strong>elementos diagnósticos</strong>). Los cuales pueden incluir: macrófagos, parásitos, gametocitos, leucocitos, etc.</p>
-<p>Para realizar el diagnóstico, Leishmaniapp asigna un <strong>identificador</strong> único a cada enfermedad, este identificador sólo puede contener caractéres alfanuméricos y puntos, a través del identificador se emplea un modelo de detección asociado para cada enfermedad (Véase <a href="../models/">modelos de detección</a>) el cual recibe una imagen y sus metadatos, mediante los cuales genera como resultado un mapa llave-valor donde la llave representa el nombre del elemento diagnóstico y el valor una lista con las coordenadas de las ocurrencias de ese elemento.</p>
+<p>Para la arquitectura de Leishmaniapp, una enfermedad será considerada como un módulo que define una serie de reglas que permiten llegar al diagnóstico de una enfermedad en particular, pues incluye una serie de elementos de interés (considerados dentro de Leishmaniapp como <strong>elementos diagnósticos</strong>). Los cuales pueden incluir: macrófagos, parásitos, gametocitos, leucocitos, etc.</p>
+<p>Para realizar el diagnóstico, Leishmaniapp asigna un <strong>identificador</strong> único a cada enfermedad, este identificador sólo puede contener caracteres alfanuméricos y puntos, a través del identificador se emplea un modelo de detección asociado para cada enfermedad (Véase <a href="../models/">modelos de detección</a>) el cual recibe una imagen y sus metadatos, mediante los cuales genera como resultado un mapa llave-valor donde la llave representa el nombre del elemento diagnóstico y el valor una lista con las coordenadas de las ocurrencias de ese elemento.</p>
 <p>En este sentido, el diagnóstico de la enfermedad ocurre cuando el modelo de detección identifica sobre la imagen recibida las coordenadas correspondientes a los puntos donde se encuentran los elementos diagnósticos característicos de la enfermedad.</p>
-<p>Ejemplo de una muestra de <em>leishmaniasis.giemsa</em> con el elemento <em>parasite</em> enmarcado
-<a class="glightbox" href="../assets/diseases/leishmaniasis.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo Leishmaniasis" src="../assets/diseases/leishmaniasis.png" /></a></p>
+<p>Ejemplo de una muestra de <em>leishmaniasis.giemsa</em> con el elemento <em>parasite</em> enmarcado</p>
+<p><a class="glightbox" href="../assets/diseases/leishmaniasis.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo Leishmaniasis" src="../assets/diseases/leishmaniasis.png" /></a></p>
 <h2 id="enfermedades-de-prueba">Enfermedades de Prueba</h2>
 <p>Conjunto de enfermedades ficticias cuyo objetivo es realizar pruebas sobre la arquitectura de Leishmaniapp con imágenes diagnósticas de elementos cotidianos</p>
 <table>

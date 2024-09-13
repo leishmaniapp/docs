@@ -48,6 +48,8 @@
     
       <link rel="stylesheet" href="../stylesheets/color.css">
     
+      <link rel="stylesheet" href="../stylesheets/pdf.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -255,7 +257,7 @@
         
   
   <span class="md-ellipsis">
-    🌎 Cloud
+    🌎 Infraestructura
   </span>
   
 
@@ -470,27 +472,39 @@
 
 
 <h1 id="depuradores">🪲 Depuradores</h1>
-<p>Aplicaciones adicionales creadas con el fin de depurar y probar la infrastructura de Leishmaniapp durante su desarrollo</p>
+<p>Aplicaciones adicionales creadas con el fin de depurar y probar la infraestructura de Leishmaniapp durante su desarrollo</p>
 <h2 id="leishmaniapp-backend-debugger">Leishmaniapp Backend Debugger</h2>
 <blockquote>
 <p>Link del repositorio: <a href="https://github.com/leishmaniapp/backend_debugger">github.com/leishmaniapp/backend_debugger</a></p>
 </blockquote>
-<p>Aplicación utilizada como cliente gRPC para probar los métodos ofrecidos por cada uno de los <a href="../schema/#servicios">servicios</a> de la <a href="../cloud/">infrastructura cloud</a></p>
+<p>Aplicación utilizada como cliente gRPC para probar los métodos ofrecidos por cada uno de los <a href="../schema/#servicios">servicios</a> de la <a href="../cloud/">infraestructura cloud</a></p>
 <h3 id="compilacion">Compilación</h3>
 <p>Esta es una aplicación multiplataforma construida con el framework <em><a href="https://flutter.dev/">Flutter</a></em>, por lo que puede ser utilizada en cualquier dispositivo, para compilarla siga los siguientes pasos:</p>
 <ol>
-<li>Instale el <em>SDK</em> de <em>Flutter</em> y verifique su instalación con <code>flutter doctor -v</code></li>
-<li>Clone el repositorio <code>git clone git@github.com:leishmaniapp/backend_debugger.git</code> y navegue hasta el directorio del proyecto</li>
-<li>Descargue el submodulo para el <em><a href="../schema/">esquema de protobuf</a></em> con el siguiente comando:
-   <div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
-</span></code></pre></div></li>
-<li>Descargue las dependencias del proyecto con el siguiente comando
-   <div class="language-sh highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>flutter<span class="w"> </span>pub<span class="w"> </span>get
-</span></code></pre></div></li>
-<li>Compile los archivos del <em>esquema de protobuf</em> con el siguiente comando
-   <div class="language-sh highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>dart<span class="w"> </span>run<span class="w"> </span>build_runner<span class="w"> </span>build
-</span></code></pre></div></li>
-<li>Compile e instale el proyecto <code>flutter run -d (your device)</code></li>
+<li>
+<p>Instale el <em>SDK</em> de <em>Flutter</em> y verifique su instalación con <code>flutter doctor -v</code></p>
+</li>
+<li>
+<p>Clone el repositorio <code>git clone git@github.com:leishmaniapp/backend_debugger.git</code> y navegue hasta el directorio del proyecto</p>
+</li>
+<li>
+<p>Descargue el submódulo para el <em><a href="../schema/">esquema de protobuf</a></em> con el siguiente comando:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+</span></code></pre></div>
+</li>
+<li>
+<p>Descargue las dependencias del proyecto con el siguiente comando</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>flutter<span class="w"> </span>pub<span class="w"> </span>get
+</span></code></pre></div>
+</li>
+<li>
+<p>Compile los archivos del <em>esquema de protobuf</em> con el siguiente comando</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>dart<span class="w"> </span>run<span class="w"> </span>build_runner<span class="w"> </span>build
+</span></code></pre></div>
+</li>
+<li>
+<p>Compile e instale el proyecto <code>flutter run -d (dispositivo)</code></p>
+</li>
 </ol>
 <h3 id="funcionamiento">Funcionamiento</h3>
 <p>Una vez en la pantalla principal puede conectarse a cada uno de los servicios disponibles en la barra de navegación inferior, cada uno de estos servicios le solicitará una URL de conexión al servicio, utilice el protocolo <code>rpc://</code> para conectarse a los servicios. Una vez conectado se muestra un menú con todos los métodos disponibles, tenga en cuenta que algunos de estos servicios requieren autenticación, utilice la pestaña <em>'auth'</em> para obtener el token.</p>
@@ -514,6 +528,11 @@
 <td><a class="glightbox" href="../assets/debugger/backend_samples.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Samples" src="../assets/debugger/backend_samples.jpg" /></a></td>
 <td><a class="glightbox" href="../assets/debugger/backend_diagnoses.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Diagnoses" src="../assets/debugger/backend_diagnoses.jpg" /></a></td>
 </tr>
+<tr>
+<td><a href="#" title="cSpell:disable">//</a>: # (cSpell:enable)</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <h2 id="leishmaniapp-lam-debugger">Leishmaniapp LAM Debugger</h2>
@@ -521,13 +540,13 @@
 <p>Link del repositorio: <a href="https://github.com/leishmaniapp/lam-debugger-android">github.com/leishmaniapp/lam-debugger-android</a></p>
 </blockquote>
 <p>Aplicación utilizada para probar conexión con modelos <a href="../lam/">LAM</a> locales en el dispositivo.</p>
-<p>En la pantalla inicial digite el <em>identificador</em> de la enfermedad a utilizar, el programa utilizará el nombre de paquete <code>com.leishmaniapp.lam.[disease]</code> (donde <code>[disease]</code> es el <em>identificador</em> de la enfermedad previamente digitado) para enlazar el <em>bound service</em> asociado al modelo <em>LAM</em>, luego de mostrará una pantalla desde la cual se selecciona la imagen a utilizar y se rellenan los metadatos de la petición, estos metadatos pueden ser autogenerados oprimiendo el botón situado al costado, una vez iniciado el análisis se mostrará una ventana de carga y finalmente se mostraran los resultados arrojados por el modelo.</p>
+<p>En la pantalla inicial digite el <em>identificador</em> de la enfermedad a utilizar, el programa utilizará el nombre de paquete <code>com.leishmaniapp.lam.[disease]</code> (donde <code>[disease]</code> es el <em>identificador</em> de la enfermedad previamente digitado) para enlazar el <em>bound service</em> asociado al modelo <em>LAM</em>, luego de mostrará una pantalla desde la cual se selecciona la imagen a utilizar y se rellenan los metadatos de la petición, estos metadatos pueden ser auto-generados oprimiendo el botón situado al costado, una vez iniciado el análisis se mostrará una ventana de carga y finalmente se mostraran los resultados arrojados por el modelo.</p>
 <p>A continuación capturas de pantallas del depurador analizando una muestra de la enfermedad de pruebas <em>mock.spots</em></p>
 <table>
 <thead>
 <tr>
 <th>Pantalla de Inicio</th>
-<th>Selección de imágen</th>
+<th>Selección de imagen</th>
 <th>Resultados del modelo</th>
 </tr>
 </thead>

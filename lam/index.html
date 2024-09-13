@@ -50,6 +50,8 @@
     
       <link rel="stylesheet" href="../stylesheets/color.css">
     
+      <link rel="stylesheet" href="../stylesheets/pdf.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -257,7 +259,7 @@
         
   
   <span class="md-ellipsis">
-    🌎 Cloud
+    🌎 Infraestructura
   </span>
   
 
@@ -672,10 +674,10 @@
 </li>
 <li>
 <p>Cree un <em>bound service</em> que maneje las peticiones utilizando las utilidades del paquete <code>analysis-jvm:android</code></p>
-<p>Las peticiones de análisis son del tipo <code>com.leishmaniapp.analysis.lam.LamAnalysisRequest</code> y pueden ser recuperadas del <em>bundle</em> del mensaje a través del método <code>LamAnalysisRequest::fromBundle</code>, los resultados por otra parte deben de ser entregados mediante la estructura <code>com.leishmaniapp.analysis.lam.LamAnalysisResponse</code> y una vez creada esta se puede transformar en un <em>bundle</em> mediante el método <code>LamAnalysisresponse::toBundle</code></p>
+<p>Las peticiones de análisis son del tipo <code>com.leishmaniapp.analysis.lam.LamAnalysisRequest</code> y pueden ser recuperadas del <em>bundle</em> del mensaje a través del método <code>LamAnalysisRequest::fromBundle</code>, los resultados por otra parte deben de ser entregados mediante la estructura <code>com.leishmaniapp.analysis.lam.LamAnalysisResponse</code> y una vez creada esta se puede transformar en un <em>bundle</em> mediante el método <code>LamAnalysisResponse::toBundle</code></p>
 </li>
 <li>
-<p>Exporte el servicio, agrege la acción <code>com.leishmaniapp.lam.ACTION_ANALYZE</code> y agrege permiso <code>com.leishmaniapp.lam.BIND_PERMISSION</code> (Para que los permisos tengan efecto, ambos Leishmaniapp y el <em>LAM</em> deben de firmarse con la misma firma de desarrollador)</p>
+<p>Exporte el servicio, agregue la acción <code>com.leishmaniapp.lam.ACTION_ANALYZE</code> y agregue permiso <code>com.leishmaniapp.lam.BIND_PERMISSION</code> (Para que los permisos tengan efecto, ambos Leishmaniapp y el <em>LAM</em> deben de firmarse con la misma firma de desarrollador)</p>
 <div class="language-xml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">&lt;service</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="na">android:name=</span><span class="s">&quot;com.leishmaniapp.lam.foobar.MyBoundService&quot;</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="na">android:exported=</span><span class="s">&quot;true&quot;</span>
@@ -689,9 +691,9 @@
 </li>
 </ol>
 <h3 id="ejemplo">Ejemplo</h3>
-<p>Los siguientes snippets de código fueron obtenidos del modelo <em>LAM</em> para la enfermedad de prueba <em>mock.spots</em> (<a href="https://github.com/leishmaniapp/mock-spots-lam-android">Visite el repositorio</a>).</p>
+<p>Los siguientes fragmentos de código fueron obtenidos del modelo <em>LAM</em> para la enfermedad de prueba <em>mock.spots</em> (<a href="https://github.com/leishmaniapp/mock-spots-lam-android">Visite el repositorio</a>).</p>
 <h5 id="bound-service">Bound Service</h5>
-<p>Este es el servicio al cual la aplicación de Leishmaniapp se enlazará para enviar las peticiones de análisis, recibe un dato de tipo <em>LamAnalysisRequest</em> a través de un <em>bundle</em> cuya key es <em><strong>LAM_REQUEST_BUNDLE</strong></em> (puede obtener este dato a través de la extensión <code>LamAnalysisRequest::fromBundle(Bundle, ClassLoader) -&gt; LamAnalysisRequest?</code>) y retorna los resultados a través de un <em>bundle</em> con un <em>AnalysisResultsParcel</em> (una especializacion de <em>AnalysisResults</em> que implementa <em>Parcelable</em>) y llave <em><strong>LAM_RESPONSE_BUNDLE</strong></em> (puede obtener este bundle a través de la extensión <code>LamAnalysisRequest.toBundle() -&gt; Bundle</code>)</p>
+<p>Este es el servicio al cual la aplicación de Leishmaniapp se enlazará para enviar las peticiones de análisis, recibe un dato de tipo <em>LamAnalysisRequest</em> a través de un <em>bundle</em> cuya key es <em><strong>LAM_REQUEST_BUNDLE</strong></em> (puede obtener este dato a través de la extensión <code>LamAnalysisRequest::fromBundle(Bundle, ClassLoader) -&gt; LamAnalysisRequest?</code>) y retorna los resultados a través de un <em>bundle</em> con un <em>AnalysisResultsParcel</em> (una especialización de <em>AnalysisResults</em> que implementa <em>Parcelable</em>) y llave <em><strong>LAM_RESPONSE_BUNDLE</strong></em> (puede obtener este bundle a través de la extensión <code>LamAnalysisRequest.toBundle() -&gt; Bundle</code>)</p>
 <blockquote>
 <p>💡 Si su proyecto hace uso de <em>Jetpack Hilt</em>, puede utilizar este mismo código para su modelo <em>LAM</em> pues no posee lógica particular a la enfermedad de <em>mock.spots</em></p>
 </blockquote>
@@ -1051,11 +1053,12 @@
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="na">opencv-python</span><span class="o">=</span><span class="s">=4.5.1.48</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="na">scikit-learn</span><span class="o">=</span><span class="s">=1.1.3</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="na">scikit-image</span><span class="o">=</span><span class="s">=0.18.3</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="na">```cvzone</span><span class="o">=</span><span class="s">=1.6.1</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="na">numpy</span><span class="o">=</span><span class="s">=1.19.5</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="na">opencv-python</span><span class="o">=</span><span class="s">=4.5.1.48</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="na">scikit-learn</span><span class="o">=</span><span class="s">=1.1.3</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="na">scikit-image</span><span class="o">=</span><span class="s">=0.18.3</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="na">[//]</span><span class="o">:</span><span class="w"> </span><span class="s"># (cSpell:disable)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="na">```cvzone</span><span class="o">=</span><span class="s">=1.6.1</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="na">numpy</span><span class="o">=</span><span class="s">=1.19.5</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="na">opencv-python</span><span class="o">=</span><span class="s">=4.5.1.48</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="na">scikit-learn</span><span class="o">=</span><span class="s">=1.1.3</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="na">scikit-image</span><span class="o">=</span><span class="s">=0.18.3</span>
 </span></code></pre></div>
 <h4 id="actualizacion-del-codigo-fuente-de-los-modelos">Actualización del código fuente de los modelos</h4>
 <p>El código fuente de los modelos se encuentra en el directorio <code>app/src/main/python</code>, encuentre el archivo correspondiente al modelo que desea modificar y copie/pegue el código fuente en <em>Python</em> que se desea ejecutar. Recuerde que los modelos deben de cumplir con el formato <em><a href="../models/#alef-adapter-layer-exec-format">ALEF</a></em></p>

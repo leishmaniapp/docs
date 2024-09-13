@@ -1,0 +1,39 @@
+@page {
+    size: letter portrait;
+    margin: 40mm 20mm;
+    counter-increment: page;
+
+    page-break-after: avoid;
+    page-break-before: avoid;
+
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    white-space: pre;
+    color: grey;
+
+    @top-left {
+        content: '2024 Pontificia Universidad Javeriana';
+    }
+}
+
+@media print {
+    img {
+        max-width: 5cm;
+        max-height: 5cm;
+    }
+
+    p,
+    table,
+    ul,
+    li {
+        font-size: 14px;
+    }
+
+    code>span {
+        font-size: 12px;
+    }
+
+    .doc-cover>div {
+        height: 10cm;
+        width: 10cm;
+    }
+}

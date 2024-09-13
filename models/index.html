@@ -50,6 +50,8 @@
     
       <link rel="stylesheet" href="../stylesheets/color.css">
     
+      <link rel="stylesheet" href="../stylesheets/pdf.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -468,7 +470,7 @@
         
   
   <span class="md-ellipsis">
-    🌎 Cloud
+    🌎 Infraestructura
   </span>
   
 
@@ -763,7 +765,7 @@
 <li>Hay 1 elemento del tipo <em>baz</em> en la muestra, su centro de masa se encuentra en la coordenada (25, 20)</li>
 </ul>
 <h2 id="alef-adapter-layer-exec-format">ALEF (Adapter Layer Exec Format)</h2>
-<p>Para que los modelos de análisis puedan ser integrados a <em>LeishmaniappCloudServiceV2</em> (Veáse <a href="../cloud/">documentación de cloud</a>) es necesario implementar un estándar de entradas y salidas que permitan al <em><a href="../cloud/#model_wrapper">model_wrapper</a></em> llamar a los modelos de análisis, este estándar tiene el nombre de <em>ALEF</em> dentro de la infrastructura de Leishmaniapp, el nombre viene dado por el mecanismo que utiliza <em>model_wrapper</em> para hacer el llamado a los modelos (<em>syscall exec</em>).</p>
+<p>Para que los modelos de análisis puedan ser integrados a <em>LeishmaniappCloudServiceV2</em> (Véase <a href="../cloud/">documentación de cloud</a>) es necesario implementar un estándar de entradas y salidas que permitan al <em><a href="../cloud/#model_wrapper">model_wrapper</a></em> llamar a los modelos de análisis, este estándar tiene el nombre de <em>ALEF</em> dentro de la infraestructura de Leishmaniapp, el nombre viene dado por el mecanismo que utiliza <em>model_wrapper</em> para hacer el llamado a los modelos (<em>syscall exec</em>).</p>
 <h4 id="entradas">Entradas</h4>
 <div class="language-properties highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="na">absolute/path/to/executable</span><span class="w"> </span><span class="s">&lt;args&gt; --alef-in &lt;input&gt; --alef-out &lt;output&gt;</span>
 </span></code></pre></div>
@@ -778,7 +780,7 @@
 <p>Se recomienda que cualquier otro parámetro adicional sea opcional, de no ser así por favor asegúrese que los parámetros están correctamente establecidos en el archivo de configuración de <em>model_wrapper</em></p>
 <h4 id="salidas">Salidas</h4>
 <p>Los resultados del modelo deben de ser escritos a la <em>salida estándar</em> (<code>stdout</code>) y el código terminación del programa debe de ser <code>0</code>, si desea mostrar información de depuración o cualquier otro mensaje relevante para el usuario, debe de hacerlo a través del <em>error estándar</em> (<code>stderr</code>) pues este será ignorado por <em>model_wrapper</em> cuando la petición es exitosa.</p>
-<p>Los resultados escritos en la salida estándar deben de estar en formato <em>JSON</em> y seguir un esquema como el del siguiente ejemplo:
+<p>Los resultados escritos en la salida estándar deben de estar en formato <em>JSON</em> y seguir un esquema como el del siguiente ejemplo:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;a&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;w&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;h&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">},</span>
@@ -790,7 +792,7 @@
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">68</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">185</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;w&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;h&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="p">}</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="p">]</span>
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p>Estos resultados son traducidos por <code>model_wrapper</code> en los resultados de la estructura <a href="../schema/#muestras">(leishmaniapp.cloud.model.Sample.results)</a>, ejemplo de los resultados traducidos en formato JSON:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;a&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -888,7 +890,7 @@
 </span><span id="__span-4-75"><a id="__codelineno-4-75" name="__codelineno-4-75" href="#__codelineno-4-75"></a>    <span class="n">main</span><span class="p">()</span>
 </span></code></pre></div>
 <h2 id="modelos-de-diagnostico-soportados">Modelos de Diagnóstico Soportados</h2>
-<p>A continuación una documentación de cada uno de los modelos de diagnóstico presentes en el respositorio de la organización de Leishmaniapp</p>
+<p>A continuación una documentación de cada uno de los modelos de diagnóstico presentes en el repositorio de la organización de Leishmaniapp</p>
 <h3 id="leishmaniasis-con-tincion-giemsa">Leishmaniasis con tinción Giemsa</h3>
 <p>El identificador para esta enfermedad es <code>leishmaniasis.giemsa</code>, y se compone de dos elementos diagnósticos independientes: El modelo de detección de parásitos (<em>Leishmania spp.</em>) identificado como <code>leishmaniasis.giemsa.parasites</code>, y el modelo de detección de macrófagos identificado como <code>leishmaniasis.giemsa.macrophages</code>.</p>
 <table>
@@ -903,7 +905,7 @@
 <tbody>
 <tr>
 <td>leishmaniasis.giemsa.parasites</td>
-<td>Identificación del parásito <em>Leishmaniap spp.</em> en muestras de Leishmaniasis con tinción giemsa</td>
+<td>Identificación del parásito <em>Leishmaniapp spp.</em> en muestras de Leishmaniasis con tinción giemsa</td>
 <td><a href="https://github.com/leishmaniapp/leishmaniasis-giemsa-parasites-model">github.com/leishmaniapp/leishmaniasis-giemsa-parasites-model</a></td>
 <td><code>parasite</code></td>
 </tr>
@@ -964,7 +966,7 @@
 </table>
 <p>Este modelo no contiene a los macrófagos en una <em>bounding box</em>, en su lugar, retorna su centro de masa</p>
 <h3 id="malaria-con-tincion-romanowsky">Malaria con tinción Romanowsky</h3>
-<p>El identificador de esta enfermedad es <code>malaria.romanowsky</code> y es capaz de identificar leucocitos (<code>leukocyte</code>) y parásitos en 3 estadíos (<code>trophozoite</code>, <code>schizont</code> y <code>gametocyte</code>)</p>
+<p>El identificador de esta enfermedad es <code>malaria.romanowsky</code> y es capaz de identificar leucocitos (<code>leukocyte</code>) y parásitos en 3 estadios (<code>trophozoite</code>, <code>schizont</code> y <code>gametocyte</code>)</p>
 <table>
 <thead>
 <tr>
@@ -976,8 +978,8 @@
 </thead>
 <tbody>
 <tr>
-<td>malaria.romanowksy</td>
-<td>Identificación de leucocitos y parásitos (<em>Plasmodium spp.</em>) en sus estadíos para muestras de Malaria con tinción de Romanowsky</td>
+<td>malaria.romanowsky</td>
+<td>Identificación de leucocitos y parásitos (<em>Plasmodium spp.</em>) en sus estadios para muestras de Malaria con tinción de Romanowsky</td>
 <td><a href="https://github.com/leishmaniapp/malaria-romanowsky-model">github.com/leishmaniapp/malaria-romanowsky-model</a></td>
 <td><code>leukocyte</code>,<code>trophozoite</code>, <code>schizont</code>, <code>gametocyte</code></td>
 </tr>
@@ -1013,11 +1015,11 @@
 <li>Generación de máscara de parásitos a partir de la máscara de leucocitos</li>
 <li>Generación de recortes individuales de parásitos</li>
 <li>Clasificación de parásitos</li>
-<li>Clasificación de estadío de los parásitos</li>
+<li>Clasificación de estadio de los parásitos</li>
 </ol>
-<p>Las etapas del 1 al 4 se realizan exclusivamente mediante el uso de la librería <em>opencv</em>, la etapa de clasificación (5 y 6) utilizan clasificadores entrenados de <em><a href="https://www.tensorflow.org/">TensorFlow Lite</a></em> los cuales pueden ser encontrados en el directorio <code>src/models</code>, estos clasificadores se utilizan sobre cada uno de los recortes de parásitos individuales obtenidos en el paso anterior para determinar si son, o no, un parásito y el estadío en el que se encuentran</p>
+<p>Las etapas del 1 al 4 se realizan exclusivamente mediante el uso de la librería <em>opencv</em>, la etapa de clasificación (5 y 6) utilizan clasificadores entrenados de <em><a href="https://www.tensorflow.org/">TensorFlow Lite</a></em> los cuales pueden ser encontrados en el directorio <code>src/models</code>, estos clasificadores se utilizan sobre cada uno de los recortes de parásitos individuales obtenidos en el paso anterior para determinar si son, o no, un parásito y el estadio en el que se encuentran</p>
 <h4 id="analisis-externo">Análisis Externo</h4>
-<p>Las etapas de clasificación (5 y 6) hacen uso de la librería <em>TensorFlow Lite</em>, sin embargo, algunas plataformas pueden beneficiarse de librerías nativas que puedan hacer uso de algunos recursos de hardware (como gpu's) a los que <em>Python</em> no tiene acceso. (Caso concreto, modelo <em>LAM</em> hace uso de la librería nativa de <em>TFLite</em>).</p>
+<p>Las etapas de clasificación (5 y 6) hacen uso de la librería <em>TensorFlow Lite</em>, sin embargo, algunas plataformas pueden beneficiarse de librerías nativas que puedan hacer uso de algunos recursos de hardware (como gpus) a los que <em>Python</em> no tiene acceso. (Caso concreto, modelo <em>LAM</em> hace uso de la librería nativa de <em>TFLite</em>).</p>
 <p>Por esto, las etapas de clasificación (5 y 6) pueden ser interrumpidas, y en su lugar; obtener los recortes individuales de parásitos que son el punto de partida para un análisis externo al modelo implementado en <em>Python</em>.</p>
 <p>Para activar esta característica utilice el parámetro <code>--external-parasite-analysis=[dir]</code> o <code>-e [dir]</code>, donde <code>[dir]</code> es la ruta absoluta o relativa a un directorio en donde los recortes individuales de los parásitos serán almacenados, el output del modelo será modificado y ahora en lugar de obtener únicamente los <em>elementos diagnósticos</em> y sus componentes, se mostrará una tupla (2-d) con los siguientes valores</p>
 <ol>
@@ -1028,7 +1030,7 @@
 <p>⚠️ Esta funcionalidad rompe con el esquema <em>ALEF</em>, por lo que esta opción no es compatible con <em>model_wrapper</em></p>
 </blockquote>
 <h2 id="modelos-de-prueba">Modelos de Prueba</h2>
-<p>Las anteriores enfermedades pueden dificultar el proceso de depuración de la arquitectura, es por eso que existen otra clase de "enfermedades" que son utilizadas únicamente con fines de prueba, los modelos de detección correspondientes a estar enfermedades procesan imagenes de objetos cotidianos que permitan depurar facilmente problemas en la aplicación o arquitectura sin contar con una muestra de laboratorio.</p>
+<p>Las anteriores enfermedades pueden dificultar el proceso de depuración de la arquitectura, es por eso que existen otra clase de "enfermedades" que son utilizadas únicamente con fines de prueba, los modelos de detección correspondientes a estar enfermedades procesan imágenes de objetos cotidianos que permitan depurar fácilmente problemas en la aplicación o arquitectura sin contar con una muestra de laboratorio.</p>
 <h3 id="detector-de-colores">Detector de Colores</h3>
 <p>El identificador para esta enfermedad/modelo de prueba es <code>mock.spots</code>, detecta los principales canales de color en una imagen y calcula los centros de masa del parche de color más grande en la muestra.</p>
 <table>
@@ -1055,7 +1057,7 @@
 </tr>
 </tbody>
 </table>
-<p>A continuación un ejemplo de una muestra de un cubo de rubik con los colores rojo, amarillo y verde; en contraste con la máscara generada por el modelo y un pequeño punto blanco marcando el <em>centro de masa</em> de cada parche de color</p>
+<p>A continuación un ejemplo de una muestra de un cubo de Rubik con los colores rojo, amarillo y verde; en contraste con la máscara generada por el modelo y un pequeño punto blanco marcando el <em>centro de masa</em> de cada parche de color</p>
 <table>
 <thead>
 <tr>

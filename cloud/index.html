@@ -20,7 +20,7 @@
     
     
       
-        <title>🌎 Cloud - Documentación de Leishmaniapp</title>
+        <title>🌎 Infraestructura - Documentación de Leishmaniapp</title>
       
     
     
@@ -49,6 +49,8 @@
       <link rel="stylesheet" href="../stylesheets/fonts.css">
     
       <link rel="stylesheet" href="../stylesheets/color.css">
+    
+      <link rel="stylesheet" href="../stylesheets/pdf.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -83,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cloud" class="md-skip">
+        <a href="#infraestructura" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              🌎 Cloud
+              🌎 Infraestructura
             
           </span>
         </div>
@@ -266,7 +268,7 @@
           
   
   <span class="md-ellipsis">
-    🌎 Cloud
+    🌎 Infraestructura
   </span>
   
 
@@ -277,7 +279,7 @@
         
   
   <span class="md-ellipsis">
-    🌎 Cloud
+    🌎 Infraestructura
   </span>
   
 
@@ -445,7 +447,7 @@
           <li class="md-nav__item">
   <a href="#orden-de-operacion" class="md-nav__link">
     <span class="md-ellipsis">
-      Órden de operación
+      Orden de operación
     </span>
   </a>
   
@@ -557,13 +559,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#infrastructura-kubernetes" class="md-nav__link">
+  <a href="#infraestructura-kubernetes" class="md-nav__link">
     <span class="md-ellipsis">
-      Infrastructura (Kubernetes)
+      infraestructura (Kubernetes)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Infrastructura (Kubernetes)">
+    <nav class="md-nav" aria-label="infraestructura (Kubernetes)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -801,7 +803,7 @@
           <li class="md-nav__item">
   <a href="#orden-de-operacion" class="md-nav__link">
     <span class="md-ellipsis">
-      Órden de operación
+      Orden de operación
     </span>
   </a>
   
@@ -913,13 +915,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#infrastructura-kubernetes" class="md-nav__link">
+  <a href="#infraestructura-kubernetes" class="md-nav__link">
     <span class="md-ellipsis">
-      Infrastructura (Kubernetes)
+      infraestructura (Kubernetes)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Infrastructura (Kubernetes)">
+    <nav class="md-nav" aria-label="infraestructura (Kubernetes)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -951,19 +953,19 @@
                   
 
 
-<h1 id="cloud">🌎 Cloud</h1>
+<h1 id="infraestructura">🌎 Infraestructura</h1>
 <p>Leishmaniapp es una arquitectura de almacenamiento de información diagnóstica y procesamiento de imágenes, <em>LeishmaniappCloudServicesV2</em> es el nombre asignado al conjunto de servicios en nube capaces de proveer esta funcionalidad</p>
 <h2 id="vista-general-de-la-arquitectura">Vista General de la Arquitectura</h2>
 <p><em>LeishmaniappCloudServicesV2</em> es una arquitectura basada en <a href="https://aws.amazon.com/es/microservices/">microservicios</a>, cada uno de estos servicios se encarga de una funcionalidad específica, opera de manera independiente y se comunica con los demás elementos de la arquitectura a través de una API <a href="https://grpc.io/">gRPC</a> y un esquema de datos predefinido. (Visite <a href="../schema/"><em>Protobuf Schema</em></a> para más información acerca de la API.)</p>
-<p><a class="glightbox" href="../assets/cloud/cloud.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Diagrama de infrastructura de nube" src="../assets/cloud/cloud.png" /></a></p>
+<p><a class="glightbox" href="../assets/cloud/cloud.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Diagrama de infraestructura de nube" src="../assets/cloud/cloud.png" /></a></p>
 <h2 id="componentes">Componentes</h2>
-<p>La arquitectura <em>LeishmaniappCloudServicesV2</em> atiende a un cliente (usualmente, pero no limitado a, <a href="../application/"><em>aplicación de Leishmaniapp</em></a>) a través de la API de gRPC utilizando el protocolo HTTP/2 (sin encriptación). Las peticiones deberán ser atendidas por un <a href="#service_gateway">Gateway</a> a través de un único puerto TCP y redirigidas al microservicio capaz de atender la solicitud, el gateway también provee un servicio de <em>health check</em> con el cual los clientes pueden validar la conexión con el servidor.</p>
-<p>Cada uno de los microservicios atiende un único servicio definido en <a href="../schema/">protobuf_schema.</a>, estos son: <a href="#auth_service">Autenticación</a>, <a href="#diagnoses_service">Almacenamiento de Diagnósticos</a>, <a href="#samples_service">Almacenamiento de muestras</a> y <a href="#analysis_service">Análisis</a>. Este último mantiene un stream de datos, a través de una conexión bidireccional full-duplex entre el cliente y el servidor, con la cual múltiples peticiones de análisis pueden ser enviadas y sus resultados entregados de manera asíncrona, esto difiere con los demás servicios que son de tipo <em>unicast</em>.</p>
-<p>Las peticiones de análisis son enviadas a un <a href="#servicio-de-mensajeria">servicio de mensajería</a> que entregará la petición a un servicio de análisis específico para cada enfermedad a diagnosticar, estos servicios pueden ser implementados en cualquier lenguaje de programación y se incorporan en la arquitectura a través de un <a href="#model_wrapper">servicio de encapsulamiento</a>, para ello los binarios encargados del análisis deben estar en conformidad con el formato <a href="../models/#alef-adapter-layer-exec-format">ALEF</a> (Visite <a href="../models/"><em>Modelos de Detección</em></a> para más información). Los resultados de análisis son enviados al servicio de mensajería quien entregará los resultados al servicio de análisis, se guardará la información de la muestra a través del servicio de almacenamiento de muestras y se enviarán los resultados al cliente de manera asíncrona.</p>
+<p>La arquitectura <em>LeishmaniappCloudServicesV2</em> atiende a un cliente (usualmente, pero no limitado a, <a href="../application/"><em>aplicación de Leishmaniapp</em></a>) a través de la API de gRPC utilizando el protocolo HTTP/2 (sin encriptado). Las peticiones deberán ser atendidas por un <a href="#service_gateway">Gateway</a> a través de un único puerto TCP y redirigidas al microservicio capaz de atender la solicitud, el gateway también provee un servicio de <em>health check</em> con el cual los clientes pueden validar la conexión con el servidor.</p>
+<p>Cada uno de los microservicios atiende un único servicio definido en <a href="../schema/">protobuf_schema.</a>, estos son: <a href="#auth_service">Autenticación</a>, <a href="#diagnoses_service">Almacenamiento de Diagnósticos</a>, <a href="#samples_service">Almacenamiento de muestras</a> y <a href="#analysis_service">Análisis</a>. Este último mantiene un stream de datos, a través de una conexión bidireccional entre el cliente y el servidor, con la cual múltiples peticiones de análisis pueden ser enviadas y sus resultados entregados de manera asíncrona, esto difiere con los demás servicios que son de tipo <em>unicast</em>.</p>
+<p>Las peticiones de análisis son enviadas a un <a href="#servicio-de-mensajeria">servicio de mensajería</a> que entregará la petición a un servicio de análisis específico para cada enfermedad a diagnosticar, estos servicios pueden ser implementados en cualquier lenguaje de programación y se incorporan en la arquitectura a través de un <a href="#model_wrapper">servicio de encapsulado</a>, para ello los binarios encargados del análisis deben estar en conformidad con el formato <a href="../models/#alef-adapter-layer-exec-format">ALEF</a> (Visite <a href="../models/"><em>Modelos de Detección</em></a> para más información). Los resultados de análisis son enviados al servicio de mensajería quien entregará los resultados al servicio de análisis, se guardará la información de la muestra a través del servicio de almacenamiento de muestras y se enviarán los resultados al cliente de manera asíncrona.</p>
 <h3 id="microservicios">Microservicios</h3>
 <blockquote>
-<p>💡 Los repositorios de cada uno de los servicios hacen uso de  <em>submódulos de git</em>, no olvide inicializarlos con <code>git submodule update --init --recursive</code> después de clonar el repositorio.</p>
-<p>💡 Para la creación de las imagenes de contenedores utilize el comando <code>docker build -t &lt;nombre&gt; -f deployment/Containerfile .</code>, donde <code>&lt;nombre&gt;</code> es reemplazado por el nombre que se le asignará a la imagen.</p>
+<p>💡 Los repositorios de cada uno de los servicios hacen uso de  <em>sub-módulos de git</em>, no olvide inicializarlos con <code>git submodule update --init --recursive</code> después de clonar el repositorio.</p>
+<p>💡 Para la creación de las imágenes de contenedores utilice el comando <code>docker build -t &lt;nombre&gt; -f deployment/Containerfile .</code>, donde <code>&lt;nombre&gt;</code> es reemplazado por el nombre que se le asignará a la imagen.</p>
 </blockquote>
 <p>Cada uno de los microservicios anteriormente mencionados son descritos a detalle en esta sección.</p>
 <h4 id="service_gateway">service_gateway</h4>
@@ -975,7 +977,7 @@
 <p>Este servicio tiene como responsabilidad redirigir las peticiones del cliente al <em>host</em> correspondiente capaz de suplir el requerimiento, la lista de servicios ofrecidos y la información del <em>host</em> asociado se debe de especificar en la sección de <strong>'resources'</strong> en el archivo de configuración <strong>config.yaml</strong>.</p>
 <p>Estos servicios también pueden ser protegidos de accesos no autorizados mediante el atributo booleano <strong>'protected'</strong> asociado a cada uno de los items de <strong>'resources'</strong> en el archivo de configuración, el <em>gateway</em> verifica la autenticidad del <em>token</em> de acceso del usuario haciendo uso del servicio <em>leishmaniapp.cloud.auth.AuthService</em> cuyo <em>host</em> debe de ser especificado en la sección <strong>'authentication'</strong> del archivo de configuración.</p>
 <h5 id="configuracion">Configuración</h5>
-<p>A continuación un ejemplo del archivo de configuración <strong>config.yaml</strong>, este archivo es utilizado en la <a href="#infrastructura-kubernetes">infrastructura con Kubernetes</a></p>
+<p>A continuación un ejemplo del archivo de configuración <strong>config.yaml</strong>, este archivo es utilizado en la <a href="#infraestructura-kubernetes">infraestructura con Kubernetes</a></p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Server configuration</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">server</span><span class="p">:</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="c1"># Service port</span>
@@ -1029,7 +1031,7 @@
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="configuracion_1">Configuración</h5>
-<p>Para configurar la base de datos y demás propiedades del servicio, se debe de proveer el siguiente archivo <strong>.env</strong>
+<p>Para configurar la base de datos y demás propiedades del servicio, se debe de proveer el siguiente archivo <strong>.env</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Run in debug mode (optional, default=false)</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nv">DEBUG</span><span class="o">=</span><span class="m">0</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
@@ -1052,7 +1054,7 @@
 </span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="c1"># Web security HMAC secret</span>
 </span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="c1"># Remove double quotes for container .env</span>
 </span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="s2">&quot;your-secret-key&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="diagnoses_service">diagnoses_service</h4>
 <blockquote>
 <p>📚 Link del repositorio: <a href="https://github.com/leishmaniapp/diagnoses_service">https://github.com/leishmaniapp/diagnoses_service</a>.</p>
@@ -1119,7 +1121,7 @@
 <h5 id="headers-http2">Headers HTTP/2</h5>
 <p>Este servicio requiere del <em>pseudo-header HTTP/2</em> <code>:from</code> el cual contiene el <em>email</em> del especialista, esto con el fin de identificar y validar las peticiones sin necesidad de inspeccionar el contenido del mensaje y así poder asociarlos a la cola correspondiente.</p>
 <p>El <a href="#service_gateway">gateway</a> es el servicio responsable de validar que el <em>header From</em> coincida con el campo <em>email</em> del token de autenticación del <em>header Authorization</em></p>
-<h5 id="orden-de-operacion">Órden de operación</h5>
+<h5 id="orden-de-operacion">Orden de operación</h5>
 <p>Una vez el cliente inicia una conexión con el servicio de análisis:</p>
 <ol>
 <li>Se validará la conexión a través del <em>pseudo-header</em> HTTP/2 <code>:from</code>, el cual debe de contener el <em>email</em> del especialista</li>
@@ -1175,10 +1177,10 @@
 </blockquote>
 <p>Permite la integración entre los <a href="../models/">modelos de análisis</a> y <em>LeishmaniappCloudServicesV2</em> sin que estos tengan que implementar código relacionado a la recepción y entrega de mensajes mediante el <a href="#servicio-de-mensajeria">servicio de mensajería</a>.</p>
 <h5 id="funcionamiento">Funcionamiento</h5>
-<p>Los modelos de análisis deben de ser ejecutables en conformidad con el formato <a href="../models/#alef-adapter-layer-exec-format">ALEF</a>, la invocación de estos ejecutables se realiza a través de la <em>llamada al sistema <a href="https://en.wikipedia.org/wiki/Exec_(system_call)">exec</a></em> o similiar (<code>std::process::Command::new</code> en Rust). Los resultados de análisis son recolectados de la <em>salida estándar (<strong>stdout</strong>)</em> si el resultado de ejecución es 0, el output del <em>error estándar (<strong>stderr</strong>)</em> es ignorado durante la ejecución</p>
+<p>Los modelos de análisis deben de ser ejecutables en conformidad con el formato <a href="../models/#alef-adapter-layer-exec-format">ALEF</a>, la invocación de estos ejecutables se realiza a través de la <em>llamada al sistema <a href="https://en.wikipedia.org/wiki/Exec_(system_call)">exec</a></em> o similar (<code>std::process::Command::new</code> en Rust). Los resultados de análisis son recolectados de la <em>salida estándar (<strong>stdout</strong>)</em> si el resultado de ejecución es 0, el output del <em>error estándar (<strong>stderr</strong>)</em> es ignorado durante la ejecución</p>
 <h5 id="configuracion_5">Configuración</h5>
 <p>El archivo de configuración <strong>config.yaml</strong> determinará el <em>id</em> de la enfermedad a diagnosticar, la versión del modelo y el <em>path</em> de los <em>modelos de análisis</em> que serán ejecutados, ya sea en serie o paralelo.</p>
-<p>A continuación un archivo de configuración extraído de la enfermedad <a href="https://github.com/leishmaniapp/leishmaniasis-giemsa-disease/tree/main"><em>leishmaniasis.giemesa</em></a>. En esta configuración, dos modelos de análisis (<em>macrophages</em> y <em>parasites</em>) se ejecutan en paralelo con la misma imagen de entrada.</p>
+<p>A continuación un archivo de configuración extraído de la enfermedad <a href="https://github.com/leishmaniapp/leishmaniasis-giemsa-disease/tree/main"><em>leishmaniasis.giemsa</em></a>. En esta configuración, dos modelos de análisis (<em>macrophages</em> y <em>parasites</em>) se ejecutan en paralelo con la misma imagen de entrada.</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">disease</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">leishmaniasis.giemsa</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.0&quot;</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nt">exec</span><span class="p">:</span>
@@ -1267,7 +1269,7 @@
 <tr>
 <td>include</td>
 <td>bool</td>
-<td>Will the results of this model be appended to the respnse?</td>
+<td>Will the results of this model be appended to the response?</td>
 </tr>
 <tr>
 <td>filter</td>
@@ -1287,101 +1289,134 @@
 </tbody>
 </table>
 <h3 id="servicio-de-mensajeria">Servicio de Mensajería</h3>
-<p>El servicio de mensajería hace uso del protocolo <a href="https://www.rabbitmq.com/tutorials/amqp-concepts">AMQP 0-9-1</a> (específicamente <a href="https://www.rabbitmq.com/">RabbitMQ</a> es utilizado como broker) para hacer entrega de las peticiones y resultados de análisis.</p>
+<p>El servicio de mensajería hace uso del protocolo <a href="https://www.RabbitMQ.com/tutorials/amqp-concepts">AMQP 0-9-1</a> (específicamente <a href="https://www.RabbitMQ.com/">RabbitMQ</a> es utilizado como broker) para hacer entrega de las peticiones y resultados de análisis.</p>
 <h4 id="peticiones">Peticiones</h4>
 <p>Las peticiones de análisis se realizan desde el <a href="#analysis_service">servicio de análisis</a> a través de un <em>exchange</em> nombrado <code>analysis:requests</code> de tipo <strong>topic</strong>, este exchange debe de tener una cola para cada una de las enfermedades soportadas y el nombre de estas colas corresponde al <strong><a href="../diseases/">identificador único</a> de la enfermedad</strong>, por lo general las colas deberían de ser creadas por el modelo al iniciar y eliminadas al finalizar.</p>
 <p>Las peticiones de análisis deben llevar como tópico el <em>identificador único</em> de la enfermedad a diagnosticar, y los modelos de análisis capaces de diagnosticar esa enfermedad deben de suscribirse para recibir y procesar solicitudes.</p>
-<p><a class="glightbox" href="../assets/cloud/mq_request.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MQ Request Diagram" src="../assets/cloud/mq_request.png" /></a></p>
+<p><a class="glightbox" href="../assets/cloud/mq_request.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Diagrama de peticiones enviadas al MQ" src="../assets/cloud/mq_request.png" /></a></p>
 <h4 id="resultados">Resultados</h4>
-<p>Una vez establecida una conexión entre el cliente y el servicio de análisis, este último debe de crear una cola cuyo nombre corresponde al <strong>email del especialista</strong> en un <em>exchange</em> de nombre <code>analysis:response</code> y de tipo <strong>direct</strong>, esta cola es <em>transiente</em> y <em>efímera</em> por lo cuál sólo tiene un suscriptor y es eliminada una vez este libera la conexión. El servicio de análisis debe de liberar la conexión una vez el cliente es deconectado.</p>
+<p>Una vez establecida una conexión entre el cliente y el servicio de análisis, este último debe de crear una cola cuyo nombre corresponde al <strong>email del especialista</strong> en un <em>exchange</em> de nombre <code>analysis:response</code> y de tipo <strong>direct</strong>, esta cola es <em>transitoria</em> y <em>efímera</em> por lo cuál sólo tiene un suscriptor y es eliminada una vez este libera la conexión. El servicio de análisis debe de liberar la conexión una vez el cliente es desconectado.</p>
 <p>Los resultados de análisis se envían desde alguno de los modelos hacia la cola cuyo nombre es equivalente al <strong>email del especialista</strong>, de esta manera los resultados pueden ser entregados de manera inmediata.</p>
 <p>El modelo debe de recibir una confirmación de recepción por parte del servicio de análisis que atiende al cliente destino de los resultados, el servicio de análisis puede marcar la entrega como fallida en caso de que el cliente haya abandonado la conexión. Si el mensaje no pudo ser entregado, el modelo debe de reenviar los resultados a la cola de nombre <code>global</code>, esta cola actúa como una <em>cola de mensajes muertos</em> y entregará los resultados a cualquiera de los servicios de análisis disponibles para su almacenamiento (Todos los servicios de análisis deben de estar suscritos a la cola <code>global</code>).</p>
-<p><a class="glightbox" href="../assets/cloud/mq_response.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MQ Response Diagram" src="../assets/cloud/mq_response.png" /></a></p>
-<h2 id="infrastructura-kubernetes">Infrastructura (Kubernetes)</h2>
-<p>Esta es la plantilla base para generar una configuración declarativa de <em>Kubernetes</em> para <em>LeishmaniappCloudServicesV2</em>.
-<a class="glightbox" href="../assets/cloud/kubernetes.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Diagrama de despliegue en Kubernetes" src="../assets/cloud/kubernetes.png" /></a></p>
+<p><a class="glightbox" href="../assets/cloud/mq_response.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Diagrama de respuestas enviadas al MQ" src="../assets/cloud/mq_response.png" /></a></p>
+<h2 id="infraestructura-kubernetes">infraestructura (Kubernetes)</h2>
+<p>Esta es la plantilla base para generar una configuración declarativa de <em>Kubernetes</em> para <em>LeishmaniappCloudServicesV2</em>.</p>
+<p><a class="glightbox" href="../assets/cloud/kubernetes.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Diagrama de despliegue en Kubernetes" src="../assets/cloud/kubernetes.png" /></a></p>
 <h3 id="instrucciones-de-despliegue">Instrucciones de Despliegue</h3>
 <ol>
 <li>
 <p>Crear los volúmenes requeridos</p>
 <ol>
-<li><strong>Volumen de la Base de Datos:</strong> Contiene la base de datos <strong>mongodb</strong>, que incluye todas las colecciones de <em>autenticación</em>, <em>muestras</em> y <em>diagnósticos</em>. Este volumen debe ser persistido y protegido, ya que contiene los datos principales de la aplicación.</li>
-<li><strong>Volumen del Repositorio de Muestras:</strong> Contiene todos los archivos de imágenes sin procesar de muestras subidas a través de <em>leishmaniapp.cloud.analysis.AnalysisService</em>. Debe ser persistido y tener una gran capacidad de almacenamiento. Este volumen debe tratarse como un <strong>data lake</strong> para el entrenamiento de modelos, pero las copias de seguridad no son tan cruciales.</li>
+<li>
+<p><strong>Volumen de la Base de Datos:</strong> Contiene la base de datos <strong>mongodb</strong>, que incluye todas las colecciones de <em>autenticación</em>, <em>muestras</em> y <em>diagnósticos</em>. Este volumen debe ser persistido y protegido, ya que contiene los datos principales de la aplicación.</p>
+</li>
+<li>
+<p><strong>Volumen del Repositorio de Muestras:</strong> Contiene todos los archivos de imágenes sin procesar de muestras subidas a través de <em>leishmaniapp.cloud.analysis.AnalysisService</em>. Debe ser persistido y tener una gran capacidad de almacenamiento. Este volumen debe tratarse como un <strong>data lake</strong> para el entrenamiento de modelos, pero las copias de seguridad no son tan cruciales.</p>
+</li>
 </ol>
 </li>
 <li>
 <p>Crear los <em>namespaces</em></p>
+<p>Todos los componentes están aislados dentro de <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"><em>namespaces de Kubernetes</em></a>. Los namespaces son los siguientes:</p>
+<ol>
+<li>
+<p><strong>mongodb:</strong> Contiene el <a href="https://github.com/mongodb/mongodb-kubernetes-operator"><em>MongoDB Community Kubernetes Operator</em></a> y las bases de datos <em>mongodb</em> desplegadas (una primaria y dos secundarias con afinidad de pod) por defecto.</p>
+</li>
+<li>
+<p><strong>RabbitMQ:</strong> Contiene el <a href="https://github.com/RabbitMQ/cluster-operator"><em>RabbitMQ Kubernetes Cluster Operator</em></a> y la cola de mensajes <em>RabbitMQ</em> desplegada.</p>
+</li>
+<li>
+<p><strong>leishmaniapp:</strong> Contiene todos los servicios de <em>Leishmaniapp</em> (Gateway, AuthService, SamplesService, DiagnosesService y AnalysisService), sus secretos correspondientes, configuraciones y <a href="https://kubernetes.io/es/docs/concepts/services-networking/service/"><em>ClusterIP services</em></a>.</p>
+</li>
+<li>
+<p><strong>models:</strong> Contiene todos los servicios de análisis desplegados compatibles con el MQ.</p>
 </li>
 </ol>
-<p>Todos los componentes están aislados dentro de <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"><em>namespaces de Kubernetes</em></a>. Los namespaces son los siguientes:
-    1. <strong>mongodb:</strong> Contiene el <a href="https://github.com/mongodb/mongodb-kubernetes-operator"><em>MongoDB Community Kubernetes Operator</em></a> y las bases de datos <em>mongodb</em> desplegadas (una primaria y dos secundarias con afinidad de pod) por defecto.
-    2. <strong>rabbitmq:</strong> Contiene el <a href="https://github.com/rabbitmq/cluster-operator"><em>RabbitMQ Kubernetes Cluster Operator</em></a> y la cola de mensajes <em>rabbitmq</em> desplegada.
-    3. <strong>leishmaniapp:</strong> Contiene todos los servicios de <em>Leishmaniapp</em> (Gateway, AuthService, SamplesService, DiagnosesService y AnalysisService), sus secretos correspondientes, configuraciones y <a href="https://kubernetes.io/es/docs/concepts/services-networking/service/"><em>ClusterIP services</em></a>.
-    4. <strong>models:</strong> Contiene todos los servicios de análisis desplegados compatibles con el MQ.</p>
-<p>Para crear los <em>namespaces</em> requeridos, use el siguiente comando:
-   <div class="language-shell highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-R<span class="w"> </span>-f<span class="w"> </span>k8s/00-namespace
-</span></code></pre></div></p>
-<ol>
-<li>Instalar los operadores de Kubernetes <strong>MongoDB y RabbitMQ</strong></li>
-</ol>
-<p>Estos suelen instalarse usando <a href="https://helm.sh/"><strong>helm</strong></a>. Este repositorio utiliza la configuración declarativa de <strong>helm</strong> a través de <a href="https://github.com/roboll/helmfile"><em>helmfile</em></a>. Instale la utilidad <em>helmfile</em> siguiendo la documentación y luego utilice los siguientes comandos para desplegar los <em>charts</em> de helm requeridos en el clúster de Kubernetes:
-    <div class="language-shell highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>helmfile<span class="w"> </span>init
+<p>Para crear los <em>namespaces</em> requeridos, use el siguiente comando:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-R<span class="w"> </span>-f<span class="w"> </span>k8s/00-namespace
+</span></code></pre></div>
+</li>
+<li>
+<p>Instalar los operadores de Kubernetes <strong>MongoDB y RabbitMQ</strong></p>
+<p>Estos suelen instalarse usando <a href="https://helm.sh/"><strong>helm</strong></a>. Este repositorio utiliza la configuración declarativa de <strong>helm</strong> a través de <a href="https://github.com/roboll/helmfile"><em>helmfile</em></a>. Instale la utilidad <em>helmfile</em> siguiendo la documentación y luego utilice los siguientes comandos para desplegar los <em>charts</em> de helm requeridos en el clúster de Kubernetes:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>helmfile<span class="w"> </span>init
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>helmfile<span class="w"> </span>apply
-</span></code></pre></div></p>
-<ol>
+</span></code></pre></div>
+</li>
 <li>
 <p>Desplegar y configurar la base de datos <strong>mongodb</strong></p>
 <ol>
-<li>Despliegue <em>mongodb</em> en el clúster usando el siguiente comando:
-   <div class="language-shell highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-R<span class="w"> </span>-f<span class="w"> </span>k8s/10-mongodb
-</span></code></pre></div></li>
-<li>Use las credenciales proporcionadas en el archivo <code>01-credentials.yaml</code> para acceder a la base de datos a través del servicio <code>mongodb-nodeport</code>. Una vez conectado, cree las bases de datos y colecciones requeridas (authDB/specialists, samplesDB/samples, diagnosesDB/diagnoses) y agregue las restricciones necesarias.</li>
-<li>Obtenga la <em>cadena de conexión</em> necesaria para que los microservicios accedan a la base de datos a través de los secretos proporcionados por el operador de <em>mongodb</em>. Liste estos secretos con:
-   <div class="language-shell highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>mongodb<span class="w"> </span>get<span class="w"> </span>secrets
-</span></code></pre></div></li>
-<li>Use las credenciales para establecer los secretos requeridos en cada uno de los servicios.\
-   Ejemplo: Obtenga las credenciales de <em>AuthService</em> con el siguiente comando:
-   <div class="language-shell highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>mongodb<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>mongodb-database-admin-authserviceuser<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.data&quot;</span>
+<li>
+<p>Despliegue <em>mongodb</em> en el clúster usando el siguiente comando</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-R<span class="w"> </span>-f<span class="w"> </span>k8s/10-mongodb
 </span></code></pre></div>
-   Con las credenciales predeterminadas, la salida del comando debería ser (valores codificados en base64):
-<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="w">  </span><span class="p">{</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="nt">&quot;connectionString.standard&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bW9uZ29kYjovL2F1dGhTZXJ2aWNlVXNlcjphdXRoU2VydmljZVBhc3N3b3JkMUBtb25nb2RiLWRhdGFiYXNlLTAubW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbDoyNzAxNyxtb25nb2RiLWRhdGFiYXNlLTEubW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbDoyNzAxNy9hZG1pbj9yZXBsaWNhU2V0PW1vbmdvZGItZGF0YWJhc2Umc3NsPWZhbHNl&quot;</span><span class="p">,</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="nt">&quot;connectionString.standardSrv&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bW9uZ29kYitzcnY6Ly9hdXRoU2VydmljZVVzZXI6YXV0aFNlcnZpY2VQYXNzd29yZDFAbW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbC9hZG1pbj9yZXBsaWNhU2V0PW1vbmdvZGItZGF0YWJhc2Umc3NsPWZhbHNl&quot;</span><span class="p">,</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YXV0aFNlcnZpY2VQYXNzd29yZDE=&quot;</span><span class="p">,</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YXV0aFNlcnZpY2VVc2Vy&quot;</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">  </span><span class="p">}</span>
+</li>
+<li>
+<p>Use las credenciales proporcionadas en el archivo <code>01-credentials.yaml</code> para acceder a la base de datos a través del servicio <code>mongodb-nodeport</code>. Una vez conectado, cree las bases de datos y colecciones requeridas (authDB/specialists, samplesDB/samples, diagnosesDB/diagnoses) y agregue las restricciones necesarias.</p>
+</li>
+<li>
+<p>Obtenga la <em>cadena de conexión</em> necesaria para que los microservicios accedan a la base de datos a través de los secretos proporcionados por el operador de <em>mongodb</em>. Liste estos secretos con:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>mongodb<span class="w"> </span>get<span class="w"> </span>secrets
 </span></code></pre></div>
-   Copie el valor de <em>connectionString.standard</em> y péguelo en la clave <em>database-str</em> dentro del archivo <code>30-services/20-auth-service/10_secret.yaml</code>. Lo mismo se requiere para los servicios de <em>Diagnoses</em> y <em>Samples</em>.</li>
+</li>
+<li>
+<p>Use las credenciales para establecer los secretos requeridos en cada uno de los servicios. Ejemplo: Obtenga las credenciales de <em>AuthService</em> con el siguiente comando:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>kubecFtl<span class="w"> </span>-n<span class="w"> </span>mongodb<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>mongodb-database-admin-authserviceuser<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.data&quot;</span>
+</span></code></pre></div>
+<p>Con las credenciales predeterminadas, la salida del comando debería ser (valores codificados en base64):</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">&quot;connectionString.standard&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bW9uZ29kYjovL2F1dGhTZXJ2aWNlVXNlcjphdXRoU2VydmljZVBhc3N3b3JkMUBtb25nb2RiLWRhdGFiYXNlLTAubW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbDoyNzAxNyxtb25nb2RiLWRhdGFiYXNlLTEubW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbDoyNzAxNy9hZG1pbj9yZXBsaWNhU2V0PW1vbmdvZGItZGF0YWJhc2Umc3NsPWZhbHNl&quot;</span><span class="p">,</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">&quot;connectionString.standardSrv&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bW9uZ29kYitzcnY6Ly9hdXRoU2VydmljZVVzZXI6YXV0aFNlcnZpY2VQYXNzd29yZDFAbW9uZ29kYi1kYXRhYmFzZS1zdmMubW9uZ29kYi5zdmMuY2x1c3Rlci5sb2NhbC9hZG1pbj9yZXBsaWNhU2V0PW1vbmdvZGItZGF0YWJhc2Umc3NsPWZhbHNl&quot;</span><span class="p">,</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YXV0aFNlcnZpY2VQYXNzd29yZDE=&quot;</span><span class="p">,</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YXV0aFNlcnZpY2VVc2Vy&quot;</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Copie el valor de <em>connectionString.standard</em> y utilícelo en la clave <em>database-str</em> dentro del archivo <code>30-services/20-auth-service/10_secret.yaml</code>. Lo mismo se requiere para los servicios de <em>Diagnoses</em> y <em>Samples</em>.</p>
+</li>
 </ol>
 </li>
 <li>
-<p>Desplegar y configurar el servicio MQ <strong>rabbitmq</strong></p>
+<p>Desplegar y configurar el servicio MQ <strong>RabbitMQ</strong></p>
 <ol>
-<li>Despliegue <em>RabbitMQ</em> en el clúster usando el siguiente comando:
-    <div class="language-shell highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-R<span class="w"> </span>-f<span class="w"> </span>k8s/20-rabbitmq
-</span></code></pre></div></li>
-<li>Obtenga las credenciales predeterminadas usando el secreto <code>rabbitmq-cluster-default-user</code>. Se sugiere el siguiente comando (<em>kubectl</em> y <em>jq</em> requeridos):
-   <div class="language-shell highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>rabbitmq<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>rabbitmq-cluster-default-user<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.data | with_entries(.value |= @base64d)&quot;</span>
-</span></code></pre></div></li>
-<li>Use el servicio <code>management</code> NodePort para acceder a la <em>Consola de Gestión de RabbitMQ</em> y crear los usuarios <em>analysis</em> y <em>model</em> con sus contraseñas, y configurar los permisos de lectura+escritura del <em>vhost</em> '/'.</li>
+<li>
+<p>Despliegue <em>RabbitMQ</em> en el clúster usando el siguiente comando:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-R<span class="w"> </span>-f<span class="w"> </span>k8s/20-RabbitMQ
+</span></code></pre></div>
+</li>
+<li>
+<p>Obtenga las credenciales predeterminadas usando el secreto <code>RabbitMQ-cluster-default-user</code>. Se sugiere el siguiente comando (<em>kubectl</em> y <em>jq</em> requeridos):</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>RabbitMQ<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>RabbitMQ-cluster-default-user<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.data | with_entries(.value |= @base64d)&quot;</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>Use el servicio <code>management</code> NodePort para acceder a la <em>Consola de Gestión de RabbitMQ</em> y crear los usuarios <em>analysis</em> y <em>model</em> con sus contraseñas, y configurar los permisos de lectura+escritura del <em>vhost</em> '/'.</p>
+</li>
 </ol>
 </li>
 <li>
 <p>Desplegar los servicios de Leishmaniapp</p>
 <ol>
-<li>Configure los <em>secrets</em> y las <em>configuraciones</em> correspondientes de acuerdo con las credenciales configuradas para los servicios de <strong>mongodb</strong> y <strong>rabbitmq</strong>.</li>
-<li>Despliegue los servicios usando el siguiente comando:
-   <div class="language-shell highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-R<span class="w"> </span>-f<span class="w"> </span>k8s/30-services
-</span></code></pre></div></li>
+<li>
+<p>Configure los <em>secrets</em> y las <em>configuraciones</em> correspondientes de acuerdo con las credenciales configuradas para los servicios de <strong>mongodb</strong> y <strong>RabbitMQ</strong>.</p>
+</li>
+<li>
+<p>Despliegue los servicios usando el siguiente comando:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-R<span class="w"> </span>-f<span class="w"> </span>k8s/30-services
+</span></code></pre></div>
+</li>
 </ol>
 </li>
 <li>
 <p>Desplegar los <em>modelos de análisis</em></p>
 <ol>
-<li>Configure el <em>secret</em> correspondiente según las credenciales configuradas para el servicio <strong>rabbitmq</strong>.</li>
-<li>Despliegue los servicios usando el siguiente comando:
-   <div class="language-shell highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-R<span class="w"> </span>-f<span class="w"> </span>k8s/40-models
-</span></code></pre></div></li>
+<li>
+<p>Configure el <em>secret</em> correspondiente según las credenciales configuradas para el servicio <strong>RabbitMQ</strong>.</p>
+</li>
+<li>
+<p>Despliegue los servicios usando el siguiente comando:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-R<span class="w"> </span>-f<span class="w"> </span>k8s/40-models
+</span></code></pre></div>
+</li>
 </ol>
 </li>
 </ol>
