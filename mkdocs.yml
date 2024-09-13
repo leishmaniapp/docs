@@ -5,8 +5,10 @@ plugins:
   - with-pdf:
       output_path: document.pdf
       enabled_if_env: ENABLE_PDF_EXPORT
-      two_columns_level: 3
-      render_js: true
+      toc_level: 4
+      cover: true
+      cover_logo: "assets/index/leishmaniapp_neumorphic_dark.webp"
+      author: "Facultad de Ingeniería - Pontificia Universidad Javeriana"
 
 theme:
   name: "material"
@@ -18,6 +20,7 @@ theme:
 extra_css:
   - stylesheets/fonts.css
   - stylesheets/color.css
+  - stylesheets/pdf.css
 
 markdown_extensions:
   - def_list

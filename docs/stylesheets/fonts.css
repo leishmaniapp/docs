@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    font-family: "Roboto", sans-serif;
+}
 
 header,
 label,
@@ -6,5 +12,9 @@ h1,
 h2,
 h3,
 h4 {
-    font-family: 'Adamina', 'Roboto';
+    font-family: "Adamina", "Roboto", sans-serif;
+}
+
+code {
+    font-family: "Fira Mono", monospace;
 }
