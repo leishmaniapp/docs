@@ -451,13 +451,8 @@ numpy==1.19.5
 opencv-python==4.5.1.48
 scikit-learn==1.1.3
 scikit-image==0.18.3
-[//]: # (cSpell:disable)
-```cvzone==1.6.1
-numpy==1.19.5
-opencv-python==4.5.1.48
-scikit-learn==1.1.3
-scikit-image==0.18.3
 ```
+[//]: # (cSpell:enable)
 
 #### Actualización del código fuente de los modelos
 El código fuente de los modelos se encuentra en el directorio `app/src/main/python`, encuentre el archivo correspondiente al modelo que desea modificar y copie/pegue el código fuente en _Python_ que se desea ejecutar. Recuerde que los modelos deben de cumplir con el formato _[ALEF](models.md#alef-adapter-layer-exec-format)_
@@ -480,6 +475,7 @@ class PythonLamImpl @Inject constructor(...) : ILocalAnalysisModel {
 ...
 }
 ```
+[//]: # (cSpell:enable)
 
 ##### Función de análisis (Punto de entrada)
 El punto de entrada para el análisis debe de ser una función con un único parámetro de entrada de tipo `str`, este parámetro corresponde a la ruta relativa o absoluta hacia el archivo de imagen que se utilizará para el análisis, los resultados deben de ser del tipo `dict[str, list[dict[str, int]]]` y corresponden a las salidas definidas por _ALEF_.
@@ -506,6 +502,7 @@ def analyze(filepath):
         ]
     }
 ```
+[//]: # (cSpell:enable)
 
 El nombre por defecto de esta función debe de ser `analyze`, sin embargo; es posible cambiar este nombre modificando el valor de la variable `ENTRY_POINT_ATTR` en el archivo `app/src/main/kotlin/com/leishmaniapp/lam/leishmaniasis/giemsa/python/PythonLamImpl.kt`.
 
@@ -525,9 +522,10 @@ class PythonLamImpl @Inject constructor(...) : ILocalAnalysisModel {
 ...
 }
 ```
+[//]: # (cSpell:enable)
 
 ##### Archivos adicionales
-Cualquier otro archivo adicional que se requiera durante la ejecución del modelo (ej. archivos de _TensorFlow .tflite_ o archivos _pickle .pkl_) debe se colocarse en el mismo directorio que el código fuente en Python (`app/src/main/python`). Y debe de accederse usando una ruta relativa al archivo mediante la variable mágina `__file__`
+Cualquier otro archivo adicional que se requiera durante la ejecución del modelo (ej. archivos de _TensorFlow .tflite_ o archivos _pickle .pkl_) debe se colocarse en el mismo directorio que el código fuente en Python (`app/src/main/python`). Y debe de accederse usando una ruta relativa al archivo mediante la variable mágica `__file__`
 
 Ejemplo: suponga que desea utilizar un archivo `my_file.pkl`, la ruta final del archivo debe de ser `app/src/main/python/my_file.pkl` y puede obtener la ruta hacia este archivo durante la ejecución del modelo con el siguiente código:
 
@@ -541,5 +539,6 @@ my_file_path = os.path.join(
     "my_file.pkl",
 )
 ```
+[//]: # (cSpell:enable)
 
 Ahora puede leer el archivo utilizando la variable `my_file_path` en _Python_. Recuerde que esto no aplica únicamente a los modelos _LAM_ de Leishmaniapp, sino que es considerado _mejores prácticas_ en la programación _Python_ en general.
